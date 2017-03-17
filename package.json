@@ -1,0 +1,21 @@
+{
+	"name": "d2l-tile",
+	"description": "Brightspace Tile",
+	"private": true,
+	"scripts": {},
+	"homepage": "https://github.com/Brightspace/d2l-tile",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Brightspace/d2l-tile.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Brightspace/d2l-tile/issues"
+	},
+	"keywords": [
+		"d2l",
+		"tile"
+	],
+	"author": "D2L Corporation",
+	"license": "Apache-2.0",
+	"devDependencies": {}
+}

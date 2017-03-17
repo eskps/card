@@ -1,0 +1,163 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../d2l-icons/tier1-icons.html">
+<link rel="import" href="../d2l-dropdown/d2l-dropdown.html">
+
+<dom-module id="d2l-tile">
+	<template>
+		<style>
+			:host {
+				width: 350px;
+				border: 1px lightgray solid;
+				border-radius: 7px;
+				margin: 20px;
+				text-align: center;
+				cursor: pointer;
+				display: block;
+				position: relative;
+				font: inherit;
+			}
+
+			:host:hover d2l-dropdown > button,
+			d2l-dropdown > button:focus,
+			d2l-dropdown-menu[opened] + button {
+				opacity: 1;
+			}
+
+			.d2l-tile-image-container {
+				width: 100%;
+				height: 200px;
+				display: flex;
+				object-fit: cover;
+				overflow: hidden;
+				border-top-left-radius: 6px;
+				border-top-right-radius: 6px;
+				height: var(--tile-image-height);
+				background: var(--tile-image-background);
+				z-index: -1;
+				position: relative;
+			}
+
+			.d2l-tile-image {
+				min-width: 100%;
+				min-height: 100%;
+				width: 100%;
+				height: auto;
+				transition: opacity 0.5s;
+				opacity: 0;
+				position: absolute;
+			}
+
+			.d2l-tile-image.d2l-tile-image-loaded {
+				opacity: 1;
+			}
+
+			d2l-dropdown {
+				margin: 15px;
+				top: 0;
+				right: 0;
+				position: absolute;
+			}
+
+			:host-context([dir="rtl"]) d2l-dropdown {
+				left: 0;
+				right: auto;
+			}
+
+			d2l-dropdown > button {
+				color: #fff;
+				background: rgba(0,0,0,.5);
+				border: none;
+				border-radius: 5px;
+				float: left;
+				transition: color .5s,background .5s;
+				cursor: pointer;
+				width: 35px;
+				height: 35px;
+				display: flex;
+				justify-content: center;
+				opacity: 0;
+				transition: opacity 0.5s;
+			}
+
+			d2l-dropdown > button:hover,
+			d2l-dropdown > button:focus {
+				color: rgba(255,255,255,1);
+			    background: #006fbf;
+			}
+
+			.elipsis-icon {
+				color: inherit;
+			}
+
+			.elipsis-icon-container {
+				height: 100%;
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			[hidden] {
+				display: none;
+			}
+
+			.d2l-tile-content-container {
+				width: 100%;
+				z-index: 2;
+			}
+		</style>
+		<div class="d2l-tile-image-container" style$="[[_getImageContainerStyle(imgHeight)]]">
+			<template is="dom-if" if="[[customImageFormat]]" restamp="true">
+				<slot name="tile-image"></slot>
+			</template>
+			<img
+				hidden="[[_hideImage(imgUrl, customImageFormat)]]"
+				class="d2l-tile-image"
+				src$="[[imgUrl]]"
+				alt=""
+				role="presentation"
+				style$="[[_getImageStyle(imgBackground)]]"
+				on-load="_onImageLoaded"
+			/>
+		</div>
+		<template is="dom-if" if="[[showMenu]]" restamp="true">
+			<d2l-dropdown on-click="_onDropdownClick">
+                <d2l-dropdown-menu id="overflow-dropdown" >
+					<slot name="tile-menu"></slot>
+				</d2l-dropdown-menu>
+				<button	class="menu-item no-tap-interaction d2l-dropdown-opener" aria-label$="[[dropdownAriaLabel]]">
+					<div class="elipsis-icon-container">
+						<d2l-icon class="elipsis-icon" icon="d2l-tier1:more"></d2l-icon>
+					</div>
+				</button>
+			</d2l-dropdown>
+		</template>
+		</div>
+		<div class="d2l-tile-content-container">
+			<slot></slot>
+		</div>
+	</template>
+	<script>
+	'use strict';
+
+	Polymer({
+		is: 'd2l-tile',
+		properties: {
+			dropdownAriaLabel: String,
+			imgUrl: String,
+			showMenu: Boolean,
+			customImageFormat: Boolean
+		},
+		_onDropdownClick(e) {
+			e.stopPropagation();
+		},
+		_onImageLoaded: function() {
+			var image = this.$$('.d2l-tile-image');
+			this.toggleClass('d2l-tile-image-loaded', true, image);
+		},
+		_hideImage: function() {
+			return !this.imgUrl || this.customImageFormat;
+		}
+	});
+	</script>
+</dom-module>

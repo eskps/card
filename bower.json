@@ -1,0 +1,25 @@
+{
+  "name": "d2l-tile",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Brightspace/tile",
+  "authors": [
+    "Brightspace"
+  ],
+  "description": "D2L Tile",
+  "moduleType": [
+    "polymer"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d2l-dropdown": "^5.0.5",
+    "d2l-icons": "^3.1.2",
+	"polymer": "^1.7.0"
+  }
+}
