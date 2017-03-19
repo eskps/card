@@ -2,13 +2,14 @@
 <link rel="import" href="../d2l-icons/tier1-icons.html">
 <link rel="import" href="../d2l-dropdown/d2l-dropdown.html">
 <link rel="import" href="../d2l-dropdown/d2l-dropdown-menu.html">
+<link rel="import" href="../d2l-colors/d2l-colors.html">
 
 <dom-module id="d2l-tile">
 	<template>
 		<style>
 			:host {
 				width: 350px;
-				border: 1px lightgray solid;
+				border: 1px var(--d2l-color-titanius) solid;
 				border-radius: 7px;
 				margin: 20px;
 				text-align: center;
@@ -60,20 +61,19 @@
 				border: none;
 				border-radius: 5px;
 				float: left;
-				transition: color .5s,background .5s;
+				transition: color .5s,background .5s, opacity .5s;
 				cursor: pointer;
 				width: 35px;
 				height: 35px;
 				display: flex;
 				justify-content: center;
 				opacity: 0;
-				transition: opacity 0.5s;
 			}
 
 			d2l-dropdown > button:hover,
 			d2l-dropdown > button:focus {
-				color: rgba(255,255,255,1);
-				background: #006fbf;
+				color: white;
+				background: var(--d2l-color-celestine);
 			}
 
 			.elipsis-icon {
@@ -107,7 +107,7 @@
 				alt=""
 				role="presentation"
 				style$="[[_getImageStyle(imgUrl)]]"
-			/>
+			></div>
 		</div>
 		<template is="dom-if" if="[[showMenu]]" restamp="true">
 			<d2l-dropdown on-click="_onDropdownClick">
@@ -121,7 +121,6 @@
 				</button>
 			</d2l-dropdown>
 		</template>
-		</div>
 		<div class="d2l-tile-content-container">
 			<slot></slot>
 		</div>
