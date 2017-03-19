@@ -27,11 +27,10 @@
 
 			.d2l-tile-image-container {
 				width: 100%;
-				height: 200px;
 				overflow: hidden;
 				border-top-left-radius: 6px;
 				border-top-right-radius: 6px;
-				height: var(--tile-image-height);
+				height: var(--tile-image-height, 200px);
 				background: var(--tile-image-background);
 				z-index: -1;
 				position: relative;
@@ -111,7 +110,7 @@
 		</div>
 		<template is="dom-if" if="[[showMenu]]" restamp="true">
 			<d2l-dropdown on-click="_onDropdownClick">
-                <d2l-dropdown-menu id="overflow-dropdown" >
+				<d2l-dropdown-menu id="overflow-dropdown">
 					<slot name="tile-menu"></slot>
 				</d2l-dropdown-menu>
 				<button	class="menu-item no-tap-interaction d2l-dropdown-opener" aria-label$="[[dropdownAriaLabel]]">
