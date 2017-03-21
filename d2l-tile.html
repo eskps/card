@@ -31,7 +31,7 @@
 				border-top-left-radius: 6px;
 				border-top-right-radius: 6px;
 				height: var(--tile-image-height, 200px);
-				background: var(--tile-image-background);
+				background: var(--tile-image-background, var(--d2l-color-titanius));
 				z-index: -1;
 				position: relative;
 			}
@@ -97,7 +97,7 @@
 			}
 		</style>
 		<div class="d2l-tile-image-container" style$="[[_getImageContainerStyle(imgHeight)]]">
-			<template is="dom-if" if="[[customImageFormat]]" restamp="true">
+			<template is="dom-if" if="[[customImageFormat]]">
 				<slot name="tile-image"></slot>
 			</template>
 			<div
@@ -108,7 +108,7 @@
 				style$="[[_getImageStyle(imgUrl)]]"
 			></div>
 		</div>
-		<template is="dom-if" if="[[showMenu]]" restamp="true">
+		<template is="dom-if" if="[[showMenu]]">
 			<d2l-dropdown on-click="_onDropdownClick">
 				<d2l-dropdown-menu id="overflow-dropdown">
 					<slot name="tile-menu"></slot>
@@ -135,7 +135,7 @@
 			showMenu: Boolean,
 			customImageFormat: Boolean
 		},
-		_onDropdownClick(e) {
+		_onDropdownClick: function(e) {
 			e.stopPropagation();
 		},
 		_hideImage: function() {

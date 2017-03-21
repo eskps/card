@@ -1,21 +1,31 @@
 {
-	"name": "d2l-tile",
-	"description": "Brightspace Tile",
-	"private": true,
-	"scripts": {},
-	"homepage": "https://github.com/Brightspace/d2l-tile",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Brightspace/d2l-tile.git"
-	},
-	"bugs": {
-		"url": "https://github.com/Brightspace/d2l-tile/issues"
-	},
-	"keywords": [
-		"d2l",
-		"tile"
-	],
-	"author": "D2L Corporation",
-	"license": "Apache-2.0",
-	"devDependencies": {}
+  "name": "d2l-tile",
+  "description": "Brightspace Tile",
+  "private": true,
+  "scripts": {
+    "test": "npm run test:lint:js",
+    "test:lint:js": "eslint --ext .js,.html ."
+  },
+  "homepage": "https://github.com/Brightspace/d2l-tile",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Brightspace/d2l-tile.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Brightspace/d2l-tile/issues"
+  },
+  "keywords": [
+    "d2l",
+    "tile"
+  ],
+  "author": "D2L Corporation",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "bower": "^1.7.7",
+    "eslint": "^2.4.0",
+    "eslint-config-brightspace": "^0.2.1",
+    "eslint-plugin-html": "^1.4.0",
+    "polylint": "^2.10.1",
+    "rimraf": "^2.5.2"
+  }
 }
