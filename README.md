@@ -92,7 +92,15 @@ Stick it at the top of the content area and give it a negative top margin.
 Seems to be a bug with firefox at the moment:
 https://bugzilla.mozilla.org/show_bug.cgi?id=843003
 
-Maybe put it in a div with `role="button"` if you want it to be clickable
+Maybe put it in a div with `role="button"` if you want it to be within a clickable container
+
+## What if I want to make the tile clickable, but have another clickable element within
+
+ Add a click event handler onto the tile, and on the inner clickable element add an event handler with: `e.stopPropagation();`
+
+## React doesn't like the named slot parameters
+
+You can get around this by wrapping the d2l-tile element in something other than react (like polymer!)
 
 ## Coding styles
 
