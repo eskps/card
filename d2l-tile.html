@@ -17,6 +17,7 @@
 				display: block;
 				position: relative;
 				font: inherit;
+				background: white;
 			}
 
 			:host:hover d2l-dropdown > button,
@@ -32,7 +33,6 @@
 				border-top-right-radius: 6px;
 				height: var(--tile-image-height, 200px);
 				background: var(--tile-image-background, var(--d2l-color-titanius));
-				z-index: -1;
 				position: relative;
 			}
 
@@ -94,6 +94,7 @@
 			.d2l-tile-content-container {
 				width: 100%;
 				z-index: 2;
+				position: relative;
 			}
 		</style>
 		<div class="d2l-tile-image-container" style$="[[_getImageContainerStyle(imgHeight)]]">
