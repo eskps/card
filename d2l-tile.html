@@ -97,12 +97,12 @@
 				position: relative;
 			}
 		</style>
-		<div class="d2l-tile-image-container" style$="[[_getImageContainerStyle(imgHeight)]]">
+		<div class="d2l-tile-image-container">
 			<template is="dom-if" if="[[customImageFormat]]">
 				<slot name="tile-image"></slot>
 			</template>
 			<div
-				hidden="[[_hideImage(imgUrl, customImageFormat)]]"
+				hidden$="[[_hideImage(imgUrl, customImageFormat)]]"
 				class="d2l-tile-image"
 				alt=""
 				role="presentation"
