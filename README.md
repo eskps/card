@@ -15,6 +15,8 @@ An image at the top, content at the bottom, and an optional `...` button which c
 - `custom-image-format`: Add this attribute if you want to provide something in the `tile-image` slot rather than using the `img-url`
 - `show-menu`: Add this attribute if you want the `...` dropdown menu to appear
 - `dropdown-aria-label`: A string which will be provided to the aria-label
+- `hover-effect`: A string containing space separated hover effects you would like to apply to the tile
+	- `low-lift`: A hover effect where the tile lifts slightly off the page
 
 ### CSS Variables:
 - `--tile-image-height`: The height you want the image to be
