@@ -37,8 +37,8 @@ In the simple case, you can simply provide an image url, an image height (via cs
 </style>
 
 <d2l-tile img-url="http://www.brightspacetestimage.com">
-	<div> CONTENT </div>
-</d2l-tile
+	<div>CONTENT</div>
+</d2l-tile>
 ```
 
 If you want a '...' context menu, you have to add the `show-menu` attribute to the tag, and add a d2l-menu tag with the named slot parameter `tile-menu`, you can add an aria label using the `dropdownAriaLabel` parameter.
@@ -49,7 +49,7 @@ If you want a '...' context menu, you have to add the `show-menu` attribute to t
 </style>
 
 <d2l-tile img-url="http://www.brightspacetestimage.com" show-menu dropdown-aria-label="This is my menu">
-	<div> CONTENT </div>
+	<div>CONTENT</div>
 	<d2l-menu slot="tile-menu" >
 		<!-- d2l-menu content -->
 	</d2l-menu>
@@ -64,11 +64,11 @@ If you want to use something other than a url for the image, you can add the `cu
 </style>
 
 <d2l-tile custom-image-format>
-	<div> CONTENT </div>
+	<div>CONTENT</div>
 	<div slot="tile-image">
 		<p>Arbitrary HTML</p>
 	</div>
-</d2l-tile
+</d2l-tile>
 ```
 
 If you'd rather have css generated background than an image, you can use the `--tile-image-background` css variable and provide no image
@@ -81,8 +81,8 @@ If you'd rather have css generated background than an image, you can use the `--
 </style>
 
 <d2l-tile>
-	<div> CONTENT </div>
-</d2l-tile
+	<div>CONTENT</div>
+</d2l-tile>
 ```
 
 ## What if I want something partially overlapping the image???
