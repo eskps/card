@@ -1,0 +1,26 @@
+<script>
+	var TileBehaviorImpl = {
+		properties: {
+			menuOpened: {
+				type: Boolean,
+				value: false,
+				notify: true,
+				reflectToAttribute: true
+			}
+		},
+
+		listeners: {
+			'd2l-dropdown-open': '_onMenuOpen',
+			'd2l-dropdown-close': '_onMenuClose'
+		},
+		_onMenuOpen: function() {
+			this.menuOpened = true;
+		},
+
+		_onMenuClose: function() {
+			this.menuOpened = false;
+		},
+	};
+
+	D2LTileBehavior = [TileBehaviorImpl];
+</script>

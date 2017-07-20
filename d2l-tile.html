@@ -3,6 +3,7 @@
 <link rel="import" href="../d2l-dropdown/d2l-dropdown.html">
 <link rel="import" href="../d2l-dropdown/d2l-dropdown-menu.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
+<link rel="import" href="./d2l-tile-behavior.html">
 
 <dom-module id="d2l-tile">
 	<template>
@@ -164,18 +165,18 @@
 				></div>
 			</template>
 		</div>
-			<d2l-dropdown on-tap="_onDropdownClick">
-				<d2l-dropdown-menu id="overflow-dropdown">
-					<slot name="tile-menu"></slot>
-				</d2l-dropdown-menu>
-				<template is="dom-if" if="[[_shouldShowMenu(showMenu, loading)]]">
-					<button class="menu-item no-tap-interaction d2l-dropdown-opener" aria-label$="[[dropdownAriaLabel]]">
-						<div class="elipsis-icon-container">
-							<d2l-icon class="elipsis-icon" icon="d2l-tier1:more"></d2l-icon>
-						</div>
-					</button>
-				</template>
-			</d2l-dropdown>
+		<d2l-dropdown on-tap="_onDropdownClick">
+			<d2l-dropdown-menu id="overflow-dropdown">
+				<slot name="tile-menu"></slot>
+			</d2l-dropdown-menu>
+			<template is="dom-if" if="[[_shouldShowMenu(showMenu, loading)]]">
+				<button class="menu-item no-tap-interaction d2l-dropdown-opener" aria-label$="[[dropdownAriaLabel]]">
+					<div class="elipsis-icon-container">
+						<d2l-icon class="elipsis-icon" icon="d2l-tier1:more"></d2l-icon>
+					</div>
+				</button>
+			</template>
+		</d2l-dropdown>
 		<div class="d2l-tile-content-container">
 			<slot></slot>
 		</div>
@@ -185,6 +186,7 @@
 
 	Polymer({
 		is: 'd2l-tile',
+		behaviors: [D2LTileBehavior],
 		properties: {
 			dropdownAriaLabel: String,
 			imgUrl: String,
