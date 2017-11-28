@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-alert demo</title>
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+		<!-- Needed?
+		<link rel="import" href="../../d2l-icons/tier1-icons.html">
+		<link rel="import" href="../../d2l-dropdown/d2l-dropdown.html">
+		<link rel="import" href="../../d2l-dropdown/d2l-dropdown-menu.html">
+		<link rel="import" href="../d2l-tile-behavior.html">
+		-->
+		<link rel="import" href="../../d2l-colors/d2l-colors.html">
+		<link rel="import" href="../../d2l-typography/d2l-typography.html">
+		<link rel="import" href="../d2l-image-tile.html">
+		<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles"></style>
+		</custom-style>
+		<custom-style include="d2l-typography">
+			<style is="custom-style" include="d2l-typography"></style>
+		</custom-style>
+		<style>
+			html {
+				font-size: 20px;
+			}
+			</style>
+	</head>
+	<body unresolved class="d2l-typography">
+		<div class="vertical-section-container centered">
+
+			<h3>Tile with image and menu</h3>
+			<demo-snippet>
+				<template>
+					<style>
+						d2l-image-tile { --tile-image-height: 100px; }
+					</style>
+
+					<d2l-image-tile img-url="http://www.brightspacetestimage.com" show-menu dropdown-aria-label="This is my menu">
+						<div>CONTENT</div>
+						<d2l-menu slot="tile-menu" >
+							<!-- d2l-menu content -->
+						</d2l-menu>
+					</d2l-image-tile>
+				</template>
+			</demo-snippet>
+
+			<h3>Tile with arbitrary html in the image slot</h3>
+			<demo-snippet>
+				<template>
+					<style>
+						d2l-image-tile { --tile-image-height: 100px; }
+					</style>
+
+					<d2l-image-tile custom-image-format>
+						<div>CONTENT</div>
+						<div slot="tile-image">
+							<p>Arbitrary HTML</p>
+						</div>
+					</d2l-image-tile>
+				</template>
+			</demo-snippet>
+
+			<h3>Tile with css background and hover effect</h3>
+			<demo-snippet>
+				<template>
+					<style>
+						d2l-image-tile {
+							--tile-image-height: 100px;
+							--tile-image-background: lightblue;
+						}
+					</style>
+
+					<d2l-image-tile hover-effect="low-lift">
+						<div>CONTENT</div>
+					</d2l-image-tile>
+				</template>
+			</demo-snippet>
+
+			<h3>Tile with the "loading" state</h3>
+			<demo-snippet>
+				<template>
+					<style>
+						d2l-image-tile {
+							--tile-image-height: 100px;
+							--tile-image-background: lightblue;
+						}
+					</style>
+
+					<d2l-image-tile loading>
+						<div>CONTENT</div>
+					</d2l-image-tile>
+				</template>
+			</demo-snippet>
+		</div>
+	</body>
+</html>

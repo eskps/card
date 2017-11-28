@@ -1,4 +1,7 @@
 <script>
+	'use strict';
+
+	// @polymerBehavior window.D2L.Tile.TileBehavior
 	var TileBehaviorImpl = {
 		properties: {
 			menuOpened: {
@@ -19,8 +22,10 @@
 
 		_onMenuClose: function() {
 			this.menuOpened = false;
-		},
+		}
 	};
 
-	D2LTileBehavior = [TileBehaviorImpl];
+	window.D2L = window.D2L || {};
+	window.D2L.Dom = window.D2L.Tile || {};
+	window.D2L.Tile.TileBehavior = TileBehaviorImpl;
 </script>

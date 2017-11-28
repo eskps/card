@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-alert demo</title>
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+		<link rel="import" href="../../d2l-colors/d2l-colors.html">
+		<link rel="import" href="../d2l-tile.html">
+	</head>
+	<body unresolved class="d2l-typography">
+		<div class="vertical-section-container centered">
+
+			<h3>Basic Tile</h3>
+			<demo-snippet>
+				<template>
+					<d2l-tile>
+						A basic tile
+					</d2l-tile>
+				</template>
+			</demo-snippet>
+
+			<h3>tile with hover state</h3>
+			<demo-snippet>
+				<template>
+					<d2l-tile hover-effect="low-lift">
+						a basic tile
+					</d2l-tile>
+				</template>
+			</demo-snippet>
+		</div>
+	</body>
+</html>
