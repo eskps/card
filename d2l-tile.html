@@ -5,17 +5,17 @@
 	<template>
 		<style>
 			:host {
-				width: 350px;
+				background: white;
 				border: 1px var(--d2l-color-titanius) solid;
 				border-radius: 7px;
-				text-align: center;
 				box-sizing: border-box;
 				cursor: pointer;
 				display: block;
-				position: relative;
 				font: inherit;
-				background: white;
 				overflow: hidden;
+				position: relative;
+				text-align: center;
+				width: 350px;
 			}
 
 			[hidden] {
@@ -23,9 +23,9 @@
 			}
 
 			.d2l-tile-content-container {
+				position: relative;
 				width: 100%;
 				z-index: 2;
-				position: relative;
 			}
 
 			:host([hover-effect~="low-lift"]:not([loading])) {
@@ -34,8 +34,8 @@
 
 			:host([hover-effect~="low-lift"]:not([loading]):hover),
 			:host([hover-effect~="low-lift"]:not([loading]):focus) {
-				transform: scale(1.03);
 				box-shadow: 0 4px 10px 0 var(--d2l-color-titanius);
+				transform: scale(1.03);
 			}
 		</style>
 

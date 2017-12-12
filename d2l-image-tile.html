@@ -17,17 +17,17 @@
 			}
 
 			:host {
-				width: 350px;
+				background: white;
 				border: 1px var(--d2l-color-titanius) solid;
 				border-radius: 7px;
-				text-align: center;
 				box-sizing: border-box;
 				cursor: pointer;
 				display: block;
-				position: relative;
 				font: inherit;
-				background: white;
 				overflow: hidden;
+				position: relative;
+				text-align: center;
+				width: 350px;
 			}
 
 			:host:hover d2l-dropdown > button,
@@ -37,27 +37,27 @@
 			}
 
 			.d2l-tile-image-container {
-				width: 100%;
-				overflow: hidden;
+				background: var(--tile-image-background, var(--d2l-color-regolith));
 				border-top-left-radius: 6px;
 				border-top-right-radius: 6px;
-				height: var(--tile-image-height, 200px);
-				background: var(--tile-image-background, var(--d2l-color-regolith));
 				box-shadow: 0px -1px 0 var(--d2l-color-gypsum) inset;
+				height: var(--tile-image-height, 200px);
+				overflow: hidden;
 				position: relative;
+				width: 100%;
 			}
 
 			.d2l-tile-image {
-				width: 100%;
 				height: 100%;
 				transition: opacity 0.5s;
+				width: 100%;
 			}
 
 			d2l-dropdown {
 				margin: 15px;
-				top: 0;
-				right: 0;
 				position: absolute;
+				right: 0;
+				top: 0;
 			}
 
 			:host-context([dir="rtl"]) d2l-dropdown {
@@ -66,17 +66,17 @@
 			}
 
 			d2l-dropdown > button {
-				color: #fff;
 				background: rgba(0,0,0,.5);
 				border: none;
 				border-radius: 5px;
-				float: left;
-				transition: color .5s,background .5s, opacity .5s;
 				cursor: pointer;
-				width: 35px;
-				height: 35px;
+				color: #fff;
 				display: flex;
+				float: left;
+				height: 35px;
 				justify-content: center;
+				transition: color .5s,background .5s, opacity .5s;
+				width: 35px;
 			}
 
 			@media only screen and (hover: hover), only screen and (-moz-touch-enabled: 0) {
@@ -87,8 +87,8 @@
 
 			d2l-dropdown > button:hover,
 			d2l-dropdown > button:focus {
-				color: white;
 				background: var(--d2l-color-celestine);
+				color: white;
 			}
 
 			.elipsis-icon {
@@ -96,11 +96,11 @@
 			}
 
 			.elipsis-icon-container {
-				height: 100%;
-				width: 100%;
-				display: flex;
-				justify-content: center;
 				align-items: center;
+				display: flex;
+				height: 100%;
+				justify-content: center;
+				width: 100%;
 			}
 
 			[hidden] {
@@ -108,9 +108,9 @@
 			}
 
 			.d2l-tile-content-container {
+				position: relative;
 				width: 100%;
 				z-index: 2;
-				position: relative;
 			}
 
 			@keyframes loadingShimmer {
@@ -119,23 +119,23 @@
 			}
 
 			.loading-shimmer {
+				background-color: var(--d2l-color-regolith);
+				border-radius: 7px 7px 0 0;
+				box-shadow: inset 0 -1px 0 0 var(--d2l-color-gypsum);
 				overflow: hidden;
 				position: relative;
-				background-color: var(--d2l-color-regolith);
-				box-shadow: inset 0 -1px 0 0 var(--d2l-color-gypsum);
-				border-radius: 7px 7px 0 0;
 			}
 
 			.loading-shimmer::after {
+				animation: loadingShimmer 1.5s ease-in-out infinite;
+				background: linear-gradient(90deg, rgba(249, 250, 251, 0.1), rgba(114, 119, 122, 0.1), rgba(249, 250, 251, 0.1));
+				background-color: var(--d2l-color-regolith);
 				content: '';
+				height: 100%;
+				left: 0;
 				position: absolute;
 				top: 0;
-				left: 0;
 				width: 100%;
-				height: 100%;
-				background-color: var(--d2l-color-regolith);
-				background: linear-gradient(90deg, rgba(249, 250, 251, 0.1), rgba(114, 119, 122, 0.1), rgba(249, 250, 251, 0.1));
-				animation: loadingShimmer 1.5s ease-in-out infinite;
 			}
 
 			:host([hover-effect~="low-lift"]:not([loading])) {
@@ -144,8 +144,8 @@
 
 			:host([hover-effect~="low-lift"]:not([loading]):hover),
 			:host([hover-effect~="low-lift"]:not([loading]):focus) {
-				transform: scale(1.03);
 				box-shadow: 0 4px 10px 0 var(--d2l-color-titanius);
+				transform: scale(1.03);
 			}
 		</style>
 		<div class="d2l-tile-image-container">
