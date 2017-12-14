@@ -6,47 +6,76 @@
 		<title>d2l-image-tile demo</title>
 
 		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 		<link rel="import" href="../../d2l-colors/d2l-colors.html">
 		<link rel="import" href="../../d2l-typography/d2l-typography.html">
 		<link rel="import" href="../d2l-image-tile.html">
-		<style is="custom-style" include="d2l-typography"></style>
+		<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles"></style>
+		</custom-style>
+		<custom-style include="d2l-typography">
+			<style is="custom-style" include="d2l-typography"></style>
+		</custom-style>
 
 		<style>
 			html {
 				font-size: 20px;
 			}
-
-			.centered {
-				display: flex;
-				align-items: center;
-				flex-direction: column;
-			}
 		</style>
 	</head>
 	<body unresolved class="d2l-typography">
-		<div class="centered">
+		<div class="vertical-section-container centered">
 
-			<h3>Image tile with url image and menu</h3>
-			<d2l-image-tile img-url="https://s.brightspace.com/course-images/images/51fbf3cc-2149-4d88-890c-46efaca3ef8c/tile-low-density-mid-size.jpg" show-menu dropdown-aria-label="This is my menu">
-				<div>CONTENT</div>
-				<d2l-menu slot="tile-menu" >
-					THIS IS MENU CONTENT
-					<!-- d2l-menu content -->
-				</d2l-menu>
-			</d2l-image-tile>
+		<h3>Image tile with url image and menu</h3>
+		<demo-snippet>
+			<template>
+				<d2l-image-tile img-url="https://s.brightspace.com/course-images/images/51fbf3cc-2149-4d88-890c-46efaca3ef8c/tile-high-density-mid-size.jpg" show-menu dropdown-aria-label="This is my menu">
+					<div>CONTENT</div>
+					<d2l-menu slot="tile-menu" >
+						THIS IS MENU CONTENT
+					</d2l-menu>
+				</d2l-image-tile>
+			</template>
+		</demo-snippet>
 
 			<h3>Tile with arbitrary html in the image slot and hover effect</h3>
-			<d2l-image-tile class="tile2" hover-effect="low-lift" custom-image-format>
-				<div>CONTENT</div>
-				<div slot="tile-image">
-					<p>Arbitrary HTML</p>
-				</div>
-			</d2l-image-tile>
+			<demo-snippet>
+				<template>
+					<d2l-image-tile hover-effect="low-lift" custom-image-format>
+						<div>CONTENT</div>
+						<div slot="tile-image">
+							<p>Arbitrary HTML</p>
+						</div>
+					</d2l-image-tile>
+				</template>
+			</demo-snippet>
+
+			<h3>Tile with the css background and custom image height</h3>
+			<demo-snippet>
+				<template>
+					<custom-style>
+						<style is="custom-style">
+							.style {
+								--d2l-image-tile-image-height: 100px;
+								--d2l-image-tile-image-background: linear-gradient(to bottom, #efc5ca 0%,#bfb746 13%,#d24b5a 32%,#45c149 49%,#ba2737 69%,#772b69 86%,#f18e99 100%);
+							}
+						</style>
+					</custom-style>
+					<d2l-image-tile class="style">
+						<div>CONTENT</div>
+					</d2l-image-tile>
+				</template>
+			</demo-snippet>
 
 			<h3>Tile with the "loading" state</h3>
-			<d2l-image-tile class="tile4" loading>
-				<div>CONTENT</div>
-			</d2l-image-tile>
-		</div>
+			<demo-snippet>
+				<template>
+					<d2l-image-tile loading>
+						<div>CONTENT</div>
+					</d2l-image-tile>
+				</template>
+			</demo-snippet>
+		</div
 	</body>
 </html>
