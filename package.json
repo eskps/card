@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "postinstall": "bower install",
-    "test": "npm run test:lint:js",
-    "test:lint:js": "eslint --ext .js,.html ."
+    "test": "npm run test:lint:js && npm run test:lint:wc",
+    "test:lint:js": "eslint *.html",
+    "test:lint:wc": "polymer lint -i *.html"
   },
   "homepage": "https://github.com/Brightspace/d2l-tile",
   "repository": {
@@ -23,10 +24,10 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "bower": "^1.7.7",
-    "eslint": "^2.4.0",
-    "eslint-config-brightspace": "^0.2.1",
-    "eslint-plugin-html": "^1.4.0",
-    "polylint": "^2.10.1",
+    "eslint": "^3.14.0",
+    "eslint-config-brightspace": "^0.2.4",
+    "eslint-plugin-html": "^1.7.0",
+    "polymer-cli": "^1.5.7",
     "rimraf": "^2.5.2"
   }
 }
