@@ -28,8 +28,8 @@ A tile with an image at the top, content at the bottom, and an optional `...` bu
 - `loading`: Add this attribute if you want the tile to appear in a loading state
 
 ### CSS Variables:
-- `--tile-image-height`: The height you want the image to be
-- `--tile-image-background`: If you don't supply an image-url
+- `--d2l-image-tile-image-height`: The height you want the image to be
+- `--d2l-image-tile-image-background`: If you don't supply an image-url
 
 ### Slots:
 - Any tags without a `slot` parameter will be put into the content area of the tile
@@ -42,7 +42,7 @@ In the simple case, you can simply provide an image url, an image height (via cs
 
 ```html
 <style>
-	d2l-image-tile { --tile-image-height: 100px; }
+	d2l-image-tile { --d2l-image-tile-image-height: 100px; }
 </style>
 
 <d2l-image-tile img-url="http://www.brightspacetestimage.com">
@@ -54,7 +54,7 @@ If you want a '...' context menu, you have to add the `show-menu` attribute to t
 
 ```html
 <style>
-	d2l-image-tile { --tile-image-height: 100px; }
+	d2l-image-tile { --d2l-image-tile-image-height: 100px; }
 </style>
 
 <d2l-image-tile img-url="http://www.brightspacetestimage.com" show-menu dropdown-aria-label="This is my menu">
@@ -69,7 +69,7 @@ If you want to use something other than a url for the image, you can add the `cu
 
 ```html
 <style>
-	d2l-image-tile { --tile-image-height: 100px; }
+	d2l-image-tile { --d2l-image-tile-image-height: 100px; }
 </style>
 
 <d2l-image-tile custom-image-format>
@@ -84,8 +84,8 @@ If you'd rather have css generated background than an image, you can use the `--
 ```html
 <style>
 	d2l-image-tile {
-		--tile-image-height: 100px;
-		--tile-image-background: lightblue;
+		--d2l-image-tile-image-height: 100px;
+		--d2l-image-tile-image-background: lightblue;
 	}
 </style>
 
