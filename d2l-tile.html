@@ -1,6 +1,12 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
 
+<!--
+`d2l-tile`
+Polymer-based web component for creating a tile
+@demo demo/d2l-tile.html
+-->
+
 <dom-module id="d2l-tile">
 	<template strip-whitespace>
 		<style>
@@ -47,6 +53,9 @@
 	Polymer({
 		is: 'd2l-tile',
 		properties: {
+			/**
+			* A space-separated string listing the hover effect to be applied to the tile
+			*/
 			hoverEffect: {
 				type: String,
 				value: '',

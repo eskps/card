@@ -33,8 +33,8 @@ A tile with an image at the top, content at the bottom, and an optional `...` bu
 
 ### Slots:
 - Any tags without a `slot` parameter will be put into the content area of the tile
-- `tile-image`: If you added a `custom-image-format` tag to the `d2l-tile`, the tag with this slot attribute will be placed in the top area of the tile rather than the image. A possible use for this would be placing a responsive image with srcset and sizes
-- `tile-menu`: Use this attribute on a `<d2l-menu>` in order to place it inside the `...` menu which appears when the `show-menu` attribute is present on the `<d2l-tile>`
+- `d2l-image-tile-image`: If you added a `custom-image-format` tag to the `d2l-tile`, the tag with this slot attribute will be placed in the top area of the tile rather than the image. A possible use for this would be placing a responsive image with srcset and sizes
+- `d2l-image-tile-menu`: Use this attribute on a `<d2l-menu>` in order to place it inside the `...` menu which appears when the `show-menu` attribute is present on the `<d2l-tile>`
 
 ## Examples
 
