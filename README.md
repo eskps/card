@@ -13,6 +13,8 @@ A tile with an image at the top, content at the bottom, and an optional `...` bu
 <image goes here at some point>
 
 ## d2l-tile parameters
+- `hover-effect`: A string containing space separated hover effects you would like to apply to the tile
+	- `low-lift`: A hover effect where the tile lifts slightly off the page
 
 ## d2l-image-tile parameters
 - `hover-effect`: A string containing space separated hover effects you would like to apply to the tile
