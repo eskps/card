@@ -1,0 +1,242 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../d2l-icons/tier1-icons.html">
+<link rel="import" href="../d2l-dropdown/d2l-dropdown.html">
+<link rel="import" href="../d2l-dropdown/d2l-dropdown-menu.html">
+<link rel="import" href="../d2l-dropdown/d2l-dropdown-more.html">
+<link rel="import" href="../d2l-colors/d2l-colors.html">
+<link rel="import" href="./d2l-tile-behavior.html">
+
+<!--
+`d2l-image-tile`
+Polymer-based web component for creating a tile with an image on the top and an optional dropdown menu
+@demo demo/d2l-image-tile.html
+-->
+
+<dom-module id="d2l-image-tile">
+	<template strip-whitespace>
+		<style>
+			:host([show-menu]) {
+				overflow: visible;
+			}
+
+			:host([loading]) {
+				cursor: default;
+			}
+
+			:host {
+				background: white;
+				border: 1px var(--d2l-color-titanius) solid;
+				border-radius: 7px;
+				box-sizing: border-box;
+				cursor: pointer;
+				display: block;
+				font: inherit;
+				overflow: hidden;
+				position: relative;
+				text-align: center;
+				width: 350px;
+			}
+
+			:host(:hover) d2l-dropdown-more,
+			:host([focused]) d2l-dropdown-more,
+			:host([menu-opened]) d2l-dropdown-more {
+				opacity: 1;
+			}
+
+			.d2l-image-tile-image-container {
+				background: var(--d2l-image-tile-image-background, var(--d2l-color-regolith));
+				border-top-left-radius: 6px;
+				border-top-right-radius: 6px;
+				box-shadow: 0px -1px 0 var(--d2l-color-gypsum) inset;
+				height: var(--d2l-image-tile-image-height, 200px);
+				overflow: hidden;
+				position: relative;
+				width: 100%;
+			}
+
+			.d2l-image-tile-image {
+				height: 100%;
+				transition: opacity 0.5s;
+				width: 100%;
+			}
+
+			d2l-dropdown {
+				margin: 15px;
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+
+			:host-context([dir="rtl"]) d2l-dropdown {
+				left: 0;
+				right: auto;
+			}
+
+			d2l-dropdown-more {
+				transition: color .5s,background .5s, opacity .5s;
+			}
+
+			@media only screen and (hover: hover), only screen and (-moz-touch-enabled: 0) {
+				d2l-dropdown-more {
+					opacity: 0;
+				}
+			}
+
+			[hidden] {
+				display: none;
+			}
+
+			.d2l-image-tile-content-container {
+				position: relative;
+				width: 100%;
+				z-index: 2;
+			}
+
+			@keyframes loadingShimmer {
+				0% { transform: translate3d(-100%, 0, 0); }
+				100% { transform: translate3d(100%, 0, 0); }
+			}
+
+			.d2l-image-tile-loading-shimmer {
+				background-color: var(--d2l-color-regolith);
+				border-radius: 7px 7px 0 0;
+				box-shadow: inset 0 -1px 0 0 var(--d2l-color-gypsum);
+				overflow: hidden;
+				position: relative;
+			}
+
+			.d2l-image-tile-loading-shimmer::after {
+				animation: loadingShimmer 1.5s ease-in-out infinite;
+				background: linear-gradient(90deg, rgba(249, 250, 251, 0.1), rgba(114, 119, 122, 0.1), rgba(249, 250, 251, 0.1));
+				background-color: var(--d2l-color-regolith);
+				content: '';
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
+			}
+
+			:host([hover-effect~="low-lift"]:not([loading])) {
+				transition: transform 0.2s, box-shadow 0.2s;
+			}
+
+			:host([hover-effect~="low-lift"]:not([loading]):hover),
+			:host([hover-effect~="low-lift"]:not([loading]):focus) {
+				box-shadow: 0 4px 10px 0 var(--d2l-color-titanius);
+				transform: scale(1.03);
+			}
+		</style>
+		<div class="d2l-image-tile-image-container">
+			<template is="dom-if" if="[[loading]]">
+				<div class="d2l-image-tile-loading-shimmer d2l-image-tile-image"></div>
+			</template>
+			<template is="dom-if" if="[[!loading]]">
+				<template is="dom-if" if="[[customImageFormat]]">
+					<slot name="d2l-image-tile-image"></slot>
+				</template>
+				<div
+					hidden$="[[_hideImage(imgUrl, customImageFormat)]]"
+					class="d2l-image-tile-image"
+					alt=""
+					role="presentation"
+					style$="[[_getImageStyle(imgUrl)]]"
+				></div>
+			</template>
+		</div>
+		<d2l-dropdown on-tap="_onDropdownClick">
+			<template is="dom-if" if="[[_shouldShowMenu(showMenu, loading)]]">
+				<d2l-dropdown-more id="dropdown-more" label="[[dropdownAriaLabel]]">
+					<d2l-dropdown-menu id="overflow-dropdown">
+						<slot name="d2l-image-tile-menu"></slot>
+					</d2l-dropdown-menu>
+				</d2l-dropdown-more>
+			</template>
+		</d2l-dropdown>
+		<div class="d2l-image-tile-content-container">
+			<slot></slot>
+		</div>
+	</template>
+	<script>
+	Polymer({
+		is: 'd2l-image-tile',
+		behaviors: [window.D2L.PolymerBehaviors.TileBehavior],
+		properties: {
+			/**
+			* Gets or sets the [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)
+			* attribute for the dropdown more button, which defines a string label for the input.
+			*/
+			dropdownAriaLabel: String,
+			/**
+			* A url pointing at the image you want to show in the tile
+			*/
+			imgUrl: String,
+			/**
+			* When true, shows a '...' menu that opens a dropdown menu comprised of the contents of the
+			* `d2l-image-tile-menu` slot
+			*/
+			showMenu: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			/**
+			* When true, shows the contents of the `d2l-image-tile-image` slot rather than using the imageUrl
+			*/
+			customImageFormat: Boolean,
+			/**
+			* A space-separated string listing the hover effect to be applied to the tile
+			*/
+			hoverEffect: {
+				type: String,
+				value: '',
+				reflectToAttribute: true
+			},
+			/**
+			* When true, will set the tile into a "loading" state, where the image is replaced
+			* with an animated loading gradient.
+			*/
+			loading: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			/**
+			* A boolean reflecting the focus state of the element
+			*/
+			focused: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			}
+		},
+		hostAttributes: {
+			tabindex: 0
+		},
+		attached: function() {
+			Polymer.RenderStatus.afterNextRender(this, function() {
+				this.addEventListener('focus', this._onFocus.bind(this), true);
+				this.addEventListener('blur', this._onBlur.bind(this), true);
+			}.bind(this));
+		},
+		_onDropdownClick: function(e) {
+			e.stopPropagation();
+		},
+		_hideImage: function() {
+			return !this.imgUrl || this.customImageFormat;
+		},
+		_getImageStyle: function(imgUrl) {
+			return 'background: url(' + imgUrl + '); background-size: cover; background-position: center;' ;
+		},
+		_shouldShowMenu: function(showMenu, loading) {
+			return showMenu && !loading;
+		},
+		_onFocus: function() {
+			this.focused = true;
+		},
+		_onBlur: function() {
+			this.focused = false;
+		}
+	});
+	</script>
+</dom-module>

@@ -1,6 +1,12 @@
 <script>
+	'use strict';
+
+	// @polymerBehavior window.D2L.PolymerBehaviors.TileBehavior
 	var TileBehaviorImpl = {
 		properties: {
+			/**
+			* A boolean that is true if the tile menu is open, otherwise false
+			*/
 			menuOpened: {
 				type: Boolean,
 				value: false,
@@ -19,8 +25,10 @@
 
 		_onMenuClose: function() {
 			this.menuOpened = false;
-		},
+		}
 	};
 
-	D2LTileBehavior = [TileBehaviorImpl];
+	window.D2L = window.D2L || {};
+	window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
+	window.D2L.PolymerBehaviors.TileBehavior = TileBehaviorImpl;
 </script>
