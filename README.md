@@ -1,113 +1,177 @@
 # d2l-tile
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/BrightspaceUI/tile)
+[![Bower version][bower-image]][bower-url]
+[![Build status][ci-image]][ci-url]
 
-A [Polymer](https://www.polymer-project.org/1.0/)-based web component for the D2L Tile.
+[Polymer](https://www.polymer-project.org/1.0/)-based web components for D2L tiles.
 
-## What is the D2L-tile?
+![screenshot of text input component](/tile.gif?raw=true)
 
-A barebones bordered container for you to throw information in.
+## Installation
 
-## What is the D2L-image-tile?
+`d2l-tile` can be installed from [Bower][bower-url]:
 
-A tile with an image at the top, content at the bottom, and an optional `...` button which can launch a d2l-dropdown-menu.
+```shell
+bower install d2l-tile
+```
 
-<image goes here at some point>
+## Usage
 
-## d2l-tile parameters
-- `hover-effect`: A string containing space separated hover effects you would like to apply to the tile
-	- `low-lift`: A hover effect where the tile lifts slightly off the page
-
-## d2l-image-tile parameters
-- `hover-effect`: A string containing space separated hover effects you would like to apply to the tile
-	- `low-lift`: A hover effect where the tile lifts slightly off the page
-
-### HTML Attributes:
-- `img-url`: The image that you want to appear
-- `custom-image-format`: Add this attribute if you want to provide something in the `tile-image` slot rather than using the `img-url`
-- `show-menu`: Add this attribute if you want the `...` dropdown menu to appear
-- `dropdown-aria-label`: A string which will be provided to the aria-label
-- `hover-effect`: A string containing space separated hover effects you would like to apply to the tile
-	- `low-lift`: A hover effect where the tile lifts slightly off the page
-- `loading`: Add this attribute if you want the tile to appear in a loading state
-
-### CSS Variables:
-- `--d2l-image-tile-image-height`: The height you want the image to be
-- `--d2l-image-tile-image-background`: If you don't supply an image-url
-
-### Slots:
-- Any tags without a `slot` parameter will be put into the content area of the tile
-- `d2l-image-tile-image`: If you added a `custom-image-format` tag to the `d2l-tile`, the tag with this slot attribute will be placed in the top area of the tile rather than the image. A possible use for this would be placing a responsive image with srcset and sizes
-- `d2l-image-tile-menu`: Use this attribute on a `<d2l-menu>` in order to place it inside the `...` menu which appears when the `show-menu` attribute is present on the `<d2l-tile>`
-
-## Examples
-
-In the simple case, you can simply provide an image url, an image height (via css), and put some content inside. You can also add in a `--tile-image-background` if you want some color to show up before the menu loads
+Include the [webcomponents.js](http://webcomponents.org/polyfills/) "lite" polyfill (for browsers who don't natively support web components), then import either `d2l-tile.html` or `d2l-image-tile.html` as needed:
 
 ```html
-<style>
-	d2l-image-tile { --d2l-image-tile-image-height: 100px; }
-</style>
+<head>
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<!-- imports here -->
+</head>
+```
 
-<d2l-image-tile img-url="http://www.brightspacetestimage.com">
-	<div>CONTENT</div>
+### d2l-tile
+
+`<d2l-tile>` is a barebones bordered container for arbitrary content.
+
+```html
+<link rel="import" href="bower_components/d2l-tile/d2l-tile.html">
+<d2l-tile>
+	<p>Anything can go in here!</p>
+</d2l-tile>
+```
+
+### d2l-image-tile
+
+An extension of `<d2l-tile>`, `<d2l-image-tile>` adds an image at the top, content at the bottom, and an optional `...` "more" menu which can launch a [d2l-dropdown-menu](https://github.com/BrightspaceUI/dropdown#menu-content).
+
+Basic example using a URL-based image:
+
+```html
+<link rel="import" href="bower_components/d2l-tile/d2l-image-tile.html">
+<d2l-image-tile image-url="path-to-image.png">
+	Content below image.
 </d2l-image-tile>
 ```
 
-If you want a '...' context menu, you have to add the `show-menu` attribute to the tag, and add a d2l-menu tag with the named slot parameter `tile-menu`, you can add an aria label using the `dropdownAriaLabel` parameter.
+Alternatively, by specifying the `custom-image-format` attribute you can provide custom image content in the `d2l-image-tile-image` slot instead of the `image-url` attribute:
 
 ```html
-<style>
-	d2l-image-tile { --d2l-image-tile-image-height: 100px; }
-</style>
-
-<d2l-image-tile img-url="http://www.brightspacetestimage.com" show-menu dropdown-aria-label="This is my menu">
-	<div>CONTENT</div>
-	<d2l-menu slot="tile-menu" >
-		<!-- d2l-menu content -->
-	</d2l-menu>
-</d2l-image-tile>
-```
-
-If you want to use something other than a url for the image, you can add the `custom-image-format` attribute and an html element with the slot attribute: `tile-image`
-
-```html
-<style>
-	d2l-image-tile { --d2l-image-tile-image-height: 100px; }
-</style>
-
 <d2l-image-tile custom-image-format>
-	<div>CONTENT</div>
-	<div slot="tile-image">
-		<p>Arbitrary HTML</p>
+	<div slot="d2l-image-tile-image">
+		<p>Custom image content</p>
 	</div>
 </d2l-image-tile>
 ```
 
-If you'd rather have css generated background than an image, you can use the `--tile-image-background` css variable and provide no image
+#### "More" menu
+
+To display a `...` "more" menu, set the `show-menu` attribute and provide content inside the `d2l-image-tile-menu` slot.
+
+**Note:** always provide an accessible label for the menu using the `dropdown-aria-label` attribute.
+
+```html
+<link rel="import" href="bower_components/d2l-menu/d2l-menu.html">
+<link rel="import" href="bower_components/d2l-menu/d2l-menu-item.html">
+<d2l-image-tile show-menu dropdown-aria-label="Tile Options">
+	<d2l-menu slot="d2l-image-tile-menu">
+		<d2l-menu-item text="Menu item one"></d2l-menu-item>
+		<d2l-menu-item text="Menu item two"></d2l-menu-item>
+		<d2l-menu-item text="Menu item three"></d2l-menu-item>
+	</d2l-menu>
+</d2l-image-tile>
+```
+
+#### Loading State
+
+The image tile can be placed in an initial "loading" state:
+
+```html
+<d2l-image-tile loading>
+	...
+</d2l-image-tile>
+```
+
+#### Specifying the image height
+
+You can set the height of the image in the tile using the `--d2l-image-tile-image-height` CSS property:
+
 ```html
 <style>
 	d2l-image-tile {
 		--d2l-image-tile-image-height: 100px;
-		--d2l-image-tile-image-background: lightblue;
 	}
 </style>
-
-<d2l-image-tile>
-	<div>CONTENT</div>
-</d2l-image-tile>
 ```
 
-## What if I want something partially overlapping the image???
+#### Custom image background
+
+A custom background can also be supplied for where the image is placed using the `--d2l-image-tile-image-background` CSS property:
+
+```html
+<style>
+	d2l-image-tile {
+		--d2l-image-tile-image-background: #0000ff;
+	}
+</style>
+```
+
+### Hover Effects
+
+Both `<d2l-tile>` and `<d2l-image-tile>` support setting an effect for when the user hovers over the tile. It's a comma-separated list of hover effects, which can currently include:
+- low-lift: tile lifts slightly off the page
+
+```html
+<d2l-tile hover-effect="low-lift">
+...
+</d2l-tile>
+```
+
+## Advanced Usage
+
+### What if I want something partially overlapping the image???
 
 Stick it at the top of the content area and give it a negative top margin.
 
-## What if I want to make the tile clickable, but have another clickable element within
+### What if I want to make the tile clickable, but have another clickable element within
 
 Add a click event handler onto the tile, and on the inner clickable element add an event handler with: `e.stopPropagation();`
 
-## React doesn't like the named slot parameters
+### React doesn't like the named slot parameters
 
 You can get around this by wrapping the d2l-tile element in something other than react (like polymer!)
 
-## Coding styles
+## Developing, Testing and Contributing
 
-See the [Best Practices & Style Guide](https://github.com/Brightspace/valence-ui-docs/wiki/Best-Practices-&-Style-Guide) for information on naming conventions, plus information about the [EditorConfig](http://editorconfig.org) rules used in this repo.
+After cloning the repo, run `npm install` to install dependencies.
+
+Install the [Polymer CLI](https://www.polymer-project.org/2.0/docs/tools/polymer-cli) globally:
+
+```shell
+npm install -g polymer-cli
+```
+
+To start a [local web server](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#serve) that hosts the demo page and tests:
+
+```shell
+polymer serve
+```
+
+To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#lint)):
+
+```shell
+npm run lint
+```
+
+To run unit tests locally using [Polymer test](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#tests):
+
+```shell
+polymer test --skip-plugin sauce
+```
+
+To lint AND run local unit tests:
+
+```shell
+npm test
+```
+
+[bower-url]: http://bower.io/search/?q=d2l-tile
+[bower-image]: https://badge.fury.io/bo/d2l-tile.svg
+[ci-url]: https://travis-ci.org/BrightspaceUI/tile
+[ci-image]: https://travis-ci.org/BrightspaceUI/tile.svg?branch=master
