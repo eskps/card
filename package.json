@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "polymer install --variants",
     "test": "npm run test:lint:js && npm run test:lint:wc",
-    "test:lint:js": "eslint *.html",
+    "test:lint:js": "eslint *.html demo/*.html",
     "test:lint:wc": "polymer lint -i *.html"
   },
   "homepage": "https://github.com/Brightspace/d2l-tile",
