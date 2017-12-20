@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "postinstall": "polymer install --variants",
-    "test": "npm run test:lint:js && npm run test:lint:wc",
-    "test:lint:js": "eslint *.html demo/*.html",
-    "test:lint:wc": "polymer lint -i *.html"
+    "test": "npm run lint && polymer test --skip-plugin sauce",
+    "lint": "npm run lint:js && npm run lint:wc",
+    "lint:js": "eslint *.html demo/*.html test/*.html",
+    "lint:wc": "polymer lint -i *.html"
   },
   "homepage": "https://github.com/Brightspace/d2l-tile",
   "repository": {
