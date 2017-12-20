@@ -1,43 +1,41 @@
 {
   "name": "d2l-tile",
-  "version": "1.0.0",
-  "homepage": "https://github.com/Brightspace/tile",
-  "authors": [
-    "Brightspace"
-  ],
-  "description": "D2L Tile",
-  "moduleType": [
-    "polymer"
-  ],
+  "description": "Polymer-based web components for D2L tiles.",
+  "main": "d2l-tile.html",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/BrightspaceUI/tile",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
     "test",
-    "tests",
-    "demo"
+    ".editorconfig",
+    ".eslintrc.json",
+    ".gitignore",
+    ".travis.yml",
+    "CODEOWNERS",
+    "package.json",
+    "wct.conf.json"
   ],
   "dependencies": {
-    "d2l-colors": "^3.1.0",
-    "d2l-dropdown": "^6.0.0",
+    "d2l-colors": "^2.4.0 || ^3.1.0",
+    "d2l-dropdown": "^5.2.1 || ^6.0.0",
     "polymer": "1 - 2"
   },
   "devDependencies": {
-    "d2l-typography": "^5.3.0 || ^6.0.0",
+    "d2l-typography": "^5.4.0 || ^6.0.0",
     "iron-component-page": "PolymerElements/iron-component-page#1 - 2",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#1 - 2",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
     "web-component-tester": "^6.0.0",
-    "d2l-menu": "^1.0.0"
+    "d2l-menu": "^0.3.7 || ^1.0.3"
   },
   "variants": {
     "1.x": {
       "dependencies": {
         "d2l-colors": "^2.4.0",
+        "d2l-dropdown": "^5.2.1",
         "polymer": "^1.11.0"
       },
       "devDependencies": {
+        "d2l-menu": "^0.3.7",
         "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
         "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
         "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
