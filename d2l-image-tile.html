@@ -5,13 +5,11 @@
 <link rel="import" href="../d2l-dropdown/d2l-dropdown-more.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
 <link rel="import" href="./d2l-tile-behavior.html">
-
 <!--
-`d2l-image-tile`
-Polymer-based web component for creating a tile with an image on the top and an optional dropdown menu
+`d2l-image-tile` is a Polymer-based web component for creating a tile with
+* an image at the top and an optional dropdown menu.
 @demo demo/d2l-image-tile.html
 -->
-
 <dom-module id="d2l-image-tile">
 	<template strip-whitespace>
 		<style>
@@ -160,50 +158,52 @@ Polymer-based web component for creating a tile with an image on the top and an 
 	<script>
 	Polymer({
 		is: 'd2l-image-tile',
-		behaviors: [window.D2L.PolymerBehaviors.TileBehavior],
+		behaviors: [D2L.PolymerBehaviors.TileBehavior],
 		properties: {
 			/**
-			* Gets or sets the [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)
-			* attribute for the dropdown more button, which defines a string label for the input.
-			*/
+			 * Gets or sets the [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute)
+			 * attribute for the dropdown "more" button.
+			 */
 			dropdownAriaLabel: String,
 			/**
-			* A url pointing at the image you want to show in the tile
-			*/
+			 * A URL pointing at the path to the image to show in the tile.
+			 */
 			imgUrl: String,
 			/**
-			* When true, shows a '...' menu that opens a dropdown menu comprised of the contents of the
-			* `d2l-image-tile-menu` slot
-			*/
+			 * When true, shows a '...' "more" menu that opens a dropdown menu
+			 * comprised of the contents of the `d2l-image-tile-menu` slot.
+			 */
 			showMenu: {
 				type: Boolean,
 				value: false,
 				reflectToAttribute: true
 			},
 			/**
-			* When true, shows the contents of the `d2l-image-tile-image` slot rather than using the imageUrl
-			*/
+			 * When true, shows the contents of the `d2l-image-tile-image` slot
+			 * rather than using the imageUrl.
+			 */
 			customImageFormat: Boolean,
 			/**
-			* A space-separated string listing the hover effect to be applied to the tile
-			*/
+			 * A space-separated string listing the hover effect to be applied
+			 * to the tile.
+			 */
 			hoverEffect: {
 				type: String,
 				value: '',
 				reflectToAttribute: true
 			},
 			/**
-			* When true, will set the tile into a "loading" state, where the image is replaced
-			* with an animated loading gradient.
-			*/
+			 * When true, will put the tile into a "loading" state, where the
+			 * image is replaced with an animated loading gradient.
+			 */
 			loading: {
 				type: Boolean,
 				value: false,
 				reflectToAttribute: true
 			},
 			/**
-			* A boolean reflecting the focus state of the element
-			*/
+			 * A boolean reflecting the focus state of the element.
+			 */
 			focused: {
 				type: Boolean,
 				value: false,
