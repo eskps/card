@@ -1,7 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../d2l-icons/tier1-icons.html">
 <link rel="import" href="../d2l-dropdown/d2l-dropdown.html">
-<link rel="import" href="../d2l-dropdown/d2l-dropdown-menu.html">
 <link rel="import" href="../d2l-dropdown/d2l-dropdown-more.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
 <link rel="import" href="./d2l-tile-behavior.html">
@@ -145,9 +144,7 @@
 		<d2l-dropdown on-tap="_onDropdownClick">
 			<template is="dom-if" if="[[_shouldShowMenu(showMenu, loading)]]">
 				<d2l-dropdown-more id="dropdown-more" label="[[dropdownAriaLabel]]">
-					<d2l-dropdown-menu id="overflow-dropdown">
-						<slot name="d2l-image-tile-menu"></slot>
-					</d2l-dropdown-menu>
+					<slot name="d2l-image-tile-dropdown" id='dropdown-slot'></slot>
 				</d2l-dropdown-more>
 			</template>
 		</d2l-dropdown>
@@ -217,7 +214,22 @@
 			Polymer.RenderStatus.afterNextRender(this, function() {
 				this.addEventListener('focus', this._onFocus.bind(this), true);
 				this.addEventListener('blur', this._onBlur.bind(this), true);
+				this.showMenu = this._isDropdownSlotFilled();
+				slot.addEventListener('slotchange', function(e) {
+					this.showMenu = this._isDropdownSlotFilled();
+				});
 			}.bind(this));
+		},
+		_isDropdownSlotFilled: function() {
+			var slot = this.shadowRoot.querySelector('slot#dropdown-slot');
+			if (!slot) {
+				return false;
+			}
+			var slotElements = slot.assignedNodes();
+			if (slotElements === undefined || slotElements.length === 0) {
+				return false;
+			}
+			return true;
 		},
 		_onDropdownClick: function(e) {
 			e.stopPropagation();
