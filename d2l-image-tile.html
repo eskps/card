@@ -214,22 +214,20 @@
 			Polymer.RenderStatus.afterNextRender(this, function() {
 				this.addEventListener('focus', this._onFocus.bind(this), true);
 				this.addEventListener('blur', this._onBlur.bind(this), true);
+				var slot = this.shadowRoot.querySelector('#dropdown-slot');
 				this.showMenu = this._isDropdownSlotFilled();
-				slot.addEventListener('slotchange', function(e) {
+				slot.addEventListener('slotchange', function() {
 					this.showMenu = this._isDropdownSlotFilled();
 				});
 			}.bind(this));
 		},
 		_isDropdownSlotFilled: function() {
-			var slot = this.shadowRoot.querySelector('slot#dropdown-slot');
+			var slot = this.shadowRoot.querySelector('#dropdown-slot');
 			if (!slot) {
 				return false;
 			}
 			var slotElements = slot.assignedNodes();
-			if (slotElements === undefined || slotElements.length === 0) {
-				return false;
-			}
-			return true;
+			return slotElements && slotElements.length > 0;
 		},
 		_onDropdownClick: function(e) {
 			e.stopPropagation();
