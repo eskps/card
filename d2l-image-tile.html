@@ -210,11 +210,9 @@
 			e.stopPropagation();
 		},
 		_getImageStyle: function(imgUrl) {
-			var style = 'background: url(' + imgUrl + '); background-size: cover; background-position: center;';
-			if (!this.imgUrl) {
-				style += ' display: none;';
-			}
-			return style;
+			return this.imgUrl ?
+				'background: url(' + imgUrl + '); background-size: cover; background-position: center;' :
+				'display: none;';
 		},
 		_shouldShowMenu: function(showMenu, loading) {
 			return showMenu && !loading;
