@@ -80,10 +80,6 @@
 				}
 			}
 
-			[hidden] {
-				display: none;
-			}
-
 			.d2l-image-tile-content-container {
 				position: relative;
 				width: 100%;
@@ -130,16 +126,12 @@
 				<div class="d2l-image-tile-loading-shimmer d2l-image-tile-image"></div>
 			</template>
 			<template is="dom-if" if="[[!loading]]">
-				<template is="dom-if" if="[[customImageFormat]]">
-					<slot name="d2l-image-tile-image"></slot>
-				</template>
-				<div
-					hidden$="[[_hideImage(imgUrl, customImageFormat)]]"
-					class="d2l-image-tile-image"
-					alt=""
-					role="presentation"
-					style$="[[_getImageStyle(imgUrl)]]"
-				></div>
+				<slot name="d2l-image-tile-image">
+					<div
+						class="d2l-image-tile-image"
+						style$="[[_getImageStyle(imgUrl)]]"
+					></div>
+				</slot>
 			</template>
 		</div>
 		<d2l-dropdown on-tap="_onDropdownClick">
@@ -179,11 +171,6 @@
 				reflectToAttribute: true
 			},
 			/**
-			 * When true, shows the contents of the `d2l-image-tile-image` slot
-			 * rather than using the imageUrl.
-			 */
-			customImageFormat: Boolean,
-			/**
 			 * A space-separated string listing the hover effect to be applied
 			 * to the tile.
 			 */
@@ -222,11 +209,12 @@
 		_onDropdownClick: function(e) {
 			e.stopPropagation();
 		},
-		_hideImage: function() {
-			return !this.imgUrl || this.customImageFormat;
-		},
 		_getImageStyle: function(imgUrl) {
-			return 'background: url(' + imgUrl + '); background-size: cover; background-position: center;' ;
+			var style = 'background: url(' + imgUrl + '); background-size: cover; background-position: center;';
+			if (!this.imgUrl) {
+				style += ' display: none;';
+			}
+			return style;
 		},
 		_shouldShowMenu: function(showMenu, loading) {
 			return showMenu && !loading;
