@@ -62,7 +62,7 @@ Alternatively, by specifying the `custom-image-format` attribute you can provide
 
 #### "More" menu
 
-To display a `...` "more" menu, set the `show-menu` attribute and provide content inside the `d2l-image-tile-menu` slot.
+To display a `...` "more" dropdown, provide content inside the `d2l-image-tile-dropdown` slot.
 
 **Note:** always provide an accessible label for the menu using the `dropdown-aria-label` attribute.
 
@@ -70,11 +70,13 @@ To display a `...` "more" menu, set the `show-menu` attribute and provide conten
 <link rel="import" href="bower_components/d2l-menu/d2l-menu.html">
 <link rel="import" href="bower_components/d2l-menu/d2l-menu-item.html">
 <d2l-image-tile show-menu dropdown-aria-label="Tile Options">
-	<d2l-menu slot="d2l-image-tile-menu">
-		<d2l-menu-item text="Menu item one"></d2l-menu-item>
-		<d2l-menu-item text="Menu item two"></d2l-menu-item>
-		<d2l-menu-item text="Menu item three"></d2l-menu-item>
-	</d2l-menu>
+	<d2l-dropdown-menu slot="d2l-image-tile-dropdown">
+		<d2l-menu>
+			<d2l-menu-item text="Menu item one"></d2l-menu-item>
+			<d2l-menu-item text="Menu item two"></d2l-menu-item>
+			<d2l-menu-item text="Menu item three"></d2l-menu-item>
+		</d2l-menu>
+	</d2l-dropdown-menu>
 </d2l-image-tile>
 ```
 
