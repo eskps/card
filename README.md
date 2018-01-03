@@ -69,7 +69,7 @@ To display a `...` "more" dropdown, provide content inside the `d2l-image-tile-d
 ```html
 <link rel="import" href="bower_components/d2l-menu/d2l-menu.html">
 <link rel="import" href="bower_components/d2l-menu/d2l-menu-item.html">
-<d2l-image-tile show-menu dropdown-aria-label="Tile Options">
+<d2l-image-tile dropdown-aria-label="Tile Options">
 	<d2l-dropdown-menu slot="d2l-image-tile-dropdown">
 		<d2l-menu>
 			<d2l-menu-item text="Menu item one"></d2l-menu-item>
