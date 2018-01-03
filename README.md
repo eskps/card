@@ -50,10 +50,10 @@ Basic example using a URL-based image:
 </d2l-image-tile>
 ```
 
-Alternatively, by specifying the `custom-image-format` attribute you can provide custom image content in the `d2l-image-tile-image` slot instead of the `image-url` attribute:
+Alternatively, you can provide custom image content in the `d2l-image-tile-image` slot instead of the `image-url` attribute:
 
 ```html
-<d2l-image-tile custom-image-format>
+<d2l-image-tile>
 	<div slot="d2l-image-tile-image">
 		<p>Custom image content</p>
 	</div>
