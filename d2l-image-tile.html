@@ -144,7 +144,9 @@
 		<d2l-dropdown on-tap="_onDropdownClick">
 			<template is="dom-if" if="[[_shouldShowMenu(showMenu, loading)]]">
 				<d2l-dropdown-more id="dropdown-more" label="[[dropdownAriaLabel]]">
-					<slot name="d2l-image-tile-dropdown" id='dropdown-slot'></slot>
+					<slot name="d2l-image-tile-dropdown"
+						id="dropdown-slot"
+						on-slot-changed="_handleSlotChange"></slot>
 				</d2l-dropdown-more>
 			</template>
 		</d2l-dropdown>
@@ -214,15 +216,14 @@
 			Polymer.RenderStatus.afterNextRender(this, function() {
 				this.addEventListener('focus', this._onFocus.bind(this), true);
 				this.addEventListener('blur', this._onBlur.bind(this), true);
-				var slot = this.shadowRoot.querySelector('#dropdown-slot');
-				this.showMenu = this._isDropdownSlotFilled();
-				slot.addEventListener('slotchange', function() {
-					this.showMenu = this._isDropdownSlotFilled();
-				});
+				this._handleSlotChanged();
 			}.bind(this));
 		},
+		_handleSlotChanged: function() {
+			this.showMenu = this._isDropdownSlotFilled();
+		},
 		_isDropdownSlotFilled: function() {
-			var slot = this.shadowRoot.querySelector('#dropdown-slot');
+			var slot = this.$.dropdownSlot;
 			if (!slot) {
 				return false;
 			}
