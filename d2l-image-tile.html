@@ -12,10 +12,6 @@
 <dom-module id="d2l-image-tile">
 	<template strip-whitespace>
 		<style>
-			:host([show-menu]) {
-				overflow: visible;
-			}
-
 			:host([loading]) {
 				cursor: default;
 			}
@@ -28,7 +24,6 @@
 				cursor: pointer;
 				display: block;
 				font: inherit;
-				overflow: hidden;
 				position: relative;
 				text-align: center;
 				width: 350px;
@@ -142,13 +137,14 @@
 			</template>
 		</div>
 		<d2l-dropdown on-tap="_onDropdownClick">
-			<template is="dom-if" if="[[_shouldShowMenu(showMenu, loading)]]">
-				<d2l-dropdown-more id="dropdown-more" label="[[dropdownAriaLabel]]">
-					<slot name="d2l-image-tile-dropdown"
-						id="dropdown-slot"
-						on-slot-changed="_handleSlotChange"></slot>
-				</d2l-dropdown-more>
-			</template>
+			<d2l-dropdown-more
+				id="dropdown-more"
+				label="[[dropdownAriaLabel]]"
+				hidden$="[[!_shouldShowMenu(_showMenu, loading)]]">
+				<slot name="d2l-image-tile-dropdown"
+					id="dropdown-slot"
+					on-slot-changed="_handleSlotChange"></slot>
+			</d2l-dropdown-more>
 		</d2l-dropdown>
 		<div class="d2l-image-tile-content-container">
 			<slot></slot>
@@ -172,16 +168,15 @@
 			 * When true, shows a '...' "more" menu that opens a dropdown menu
 			 * comprised of the contents of the `d2l-image-tile-menu` slot.
 			 */
-			showMenu: {
+			_showMenu: {
 				type: Boolean,
-				value: false,
-				reflectToAttribute: true
+				value: false
 			},
 			/**
 			 * When true, shows the contents of the `d2l-image-tile-image` slot
 			 * rather than using the imageUrl.
 			 */
-			customImageFormat: Boolean,
+			 customImageFormat: Boolean,
 			/**
 			 * A space-separated string listing the hover effect to be applied
 			 * to the tile.
@@ -220,10 +215,10 @@
 			}.bind(this));
 		},
 		_handleSlotChanged: function() {
-			this.showMenu = this._isDropdownSlotFilled();
+			this._showMenu = this._isDropdownSlotFilled();
 		},
 		_isDropdownSlotFilled: function() {
-			var slot = this.$.dropdownSlot;
+			var slot = this.$['dropdown-slot'];
 			if (!slot) {
 				return false;
 			}
