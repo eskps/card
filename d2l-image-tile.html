@@ -198,10 +198,12 @@
 		hostAttributes: {
 			tabindex: 0
 		},
+		listeners: {
+			'focus': '_onFocus',
+			'blur': '_onBlur'
+		},
 		attached: function() {
 			Polymer.RenderStatus.afterNextRender(this, function() {
-				this.addEventListener('focus', this._onFocus.bind(this), true);
-				this.addEventListener('blur', this._onBlur.bind(this), true);
 				this._handleSlotChanged();
 			}.bind(this));
 		},
