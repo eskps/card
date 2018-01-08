@@ -33,10 +33,21 @@
 				width: 350px;
 			}
 
-			:host(:hover) d2l-dropdown-more,
-			:host([focused]) d2l-dropdown-more,
-			:host([menu-opened]) d2l-dropdown-more {
+			:host([no-mobile-more-button]) d2l-dropdown-more {
+				opacity: 0;
+				display: none;
+				pointer-events: none;
+			}
+
+			:host([no-mobile-more-button][hover-effect~="lower-menu"]:not(:hover):not([focused]):not([menu-opened])) d2l-dropdown {
+				margin-top: -15px;
+			}
+
+			:host(:not([no-mobile-more-button]):hover) d2l-dropdown-more,
+			:host(:not([no-mobile-more-button])[focused]) d2l-dropdown-more,
+			:host(:not([no-mobile-more-button])[menu-opened]) d2l-dropdown-more {
 				opacity: 1;
+				pointer-events: all;
 			}
 
 			.d2l-image-tile-image-container {
@@ -92,14 +103,40 @@
 			}
 
 			@media only screen and (hover: hover), only screen and (-moz-touch-enabled: 0) {
+				:host([hover-effect~="lower-menu"]:not(:hover):not([focused]):not([menu-opened])) d2l-dropdown {
+					margin-top: -15px;
+				}
+
+				:host([focused]) d2l-dropdown-more {
+					opacity: 1;
+				}
+
+				:host(:hover) d2l-dropdown-more,
+				:host([focused]) d2l-dropdown-more,
+				:host([menu-opened]) d2l-dropdown-more {
+					opacity: 1;
+					pointer-events: all;
+				}
+
+				:host([no-mobile-more-button]) d2l-dropdown-more {
+					display: inline-block;
+				}
+
 				d2l-dropdown-more {
 					opacity: 0;
 				}
 			}
 
 			@media only screen and (-moz-touch-enabled: 1) {
-				:host([hover-effect~="lower-menu"]:not(:hover):not([focused]):not([menu-opened])) d2l-dropdown {
-					margin-top: 0;
+				:host([no-mobile-more-button]) d2l-dropdown-more {
+					display: inline-block;
+				}
+
+				:host([no-mobile-more-button]:hover) d2l-dropdown-more,
+				:host([no-mobile-more-button][focused]) d2l-dropdown-more,
+				:host([no-mobile-more-button][menu-opened]) d2l-dropdown-more {
+					opacity: 1;
+					pointer-events: all;
 				}
 			}
 
@@ -297,6 +334,10 @@
 			focused: {
 				type: Boolean,
 				value: false,
+				reflectToAttribute: true
+			},
+			noMobileMoreButton: {
+				type: Boolean,
 				reflectToAttribute: true
 			},
 			_slotObserver: Object
