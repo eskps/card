@@ -4,6 +4,7 @@
 <link rel="import" href="../d2l-dropdown/d2l-dropdown-more.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
 <link rel="import" href="./d2l-tile-behavior.html">
+<link rel="import" href="./d2l-image-tile-base.html">
 <!--
 `d2l-image-tile` is a Polymer-based web component for creating a tile with
 * an image at the top and an optional dropdown menu.
@@ -146,6 +147,11 @@
 				z-index: 2;
 			}
 
+			.d2l-image-tile-container {
+				height: 100%;
+				border-color: inherit;
+			}
+
 			@keyframes loadingShimmer {
 				0% { transform: translate3d(-100%, 0, 0); }
 				100% { transform: translate3d(100%, 0, 0); }
@@ -240,6 +246,7 @@
 				top: 0;
 				margin-top: 15px;
 				display: flex;
+				z-index: 3;
 			}
 
 			:host-context([dir="rtl"]) .d2l-image-tile-menu-area {
@@ -252,41 +259,45 @@
 				right: auto;
 			}
 		</style>
-		<div class="d2l-image-tile-image-container">
-			<div class="d2l-image-tile-image-area">
-				<template is="dom-if" if="[[loading]]">
-					<div class="d2l-image-tile-loading-shimmer d2l-image-tile-image"></div>
-				</template>
-				<template is="dom-if" if="[[!loading]]">
-					<slot name="d2l-image-tile-image">
-						<div
-							class="d2l-image-tile-image"
-							style$="[[_getImageStyle(imgUrl)]]"
-						></div>
+		<d2l-image-tile-base href="[[href]]">
+			<div class="d2l-image-tile-menu-area" slot="d2l-image-tile-base-menu-area">
+				<d2l-dropdown on-tap="_onDropdownClick">
+					<d2l-dropdown-more
+						id="dropdown-more"
+						label="[[dropdownLabel]]"
+						hidden$="[[!_shouldShowMenu(_showMenu, loading)]]">
+						<slot name="d2l-image-tile-dropdown"
+							id="dropdown-slot"
+							on-slot-changed="_handleSlotChange">
+						</slot>
+					</d2l-dropdown-more>
+				</d2l-dropdown>
+				<div class="d2l-image-tile-menu-adjacent-container">
+					<slot name="d2l-image-tile-menu-adjacent">
 					</slot>
-				</template>
+				</div>
 			</div>
-		</div>
-		<div class="d2l-image-tile-menu-area">
-			<d2l-dropdown on-tap="_onDropdownClick">
-				<d2l-dropdown-more
-					id="dropdown-more"
-					label="[[dropdownLabel]]"
-					hidden$="[[!_shouldShowMenu(_showMenu, loading)]]">
-					<slot name="d2l-image-tile-dropdown"
-						id="dropdown-slot"
-						on-slot-changed="_handleSlotChange">
-					</slot>
-				</d2l-dropdown-more>
-			</d2l-dropdown>
-			<div class="d2l-image-tile-menu-adjacent-container">
-				<slot name="d2l-image-tile-menu-adjacent">
-				</slot>
+			<div class="d2l-image-tile-container" slot="d2l-image-tile-base-content">
+				<div class="d2l-image-tile-image-container">
+					<div class="d2l-image-tile-image-area">
+						<template is="dom-if" if="[[loading]]">
+							<div class="d2l-image-tile-loading-shimmer d2l-image-tile-image"></div>
+						</template>
+						<template is="dom-if" if="[[!loading]]">
+							<slot name="d2l-image-tile-image">
+								<div
+									class="d2l-image-tile-image"
+									style$="[[_getImageStyle(imgUrl)]]"
+								></div>
+							</slot>
+						</template>
+					</div>
+				</div>
+				<div class="d2l-image-tile-content-container">
+					<slot></slot>
+				</div>
 			</div>
-		</div>
-		<div class="d2l-image-tile-content-container">
-			<slot></slot>
-		</div>
+		</d2l-image-tile-base>
 	</template>
 	<script>
 	Polymer({
@@ -336,26 +347,37 @@
 				value: false,
 				reflectToAttribute: true
 			},
+			/**
+			 * Overrides the default behavior of always showing the ... button on mobile
+			 */
 			noMobileMoreButton: {
 				type: Boolean,
 				reflectToAttribute: true
 			},
-			_slotObserver: Object
-		},
-		hostAttributes: {
-			tabindex: 0
+			_slotObserver: Object,
+			/**
+			 * A location to go when you click on the tile
+			 */
+			href: {
+				type: String,
+				value: null
+			}
 		},
 		listeners: {
 			'focus': '_onFocus',
 			'blur': '_onBlur'
 		},
 		attached: function() {
+			this.addEventListener('focus', this._onFocus, true);
+			this.addEventListener('blur', this._onBlur, true);
 			Polymer.RenderStatus.afterNextRender(this, function() {
 				this._handleSlotChanged();
 				this._slotObserver = Polymer.dom(this.$['dropdown-slot']).observeNodes(this._handleSlotChanged.bind(this));
 			}.bind(this));
 		},
 		detached: function() {
+			this.removeEventListener('focus', this._onFocus);
+			this.removeEventListener('blur', this._onBlur);
 			if (this._slotObserver) {
 				Polymer.dom(this.$['dropdown-slot']).unobserveNodes(this._slotObserver);
 			}
