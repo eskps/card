@@ -5,6 +5,7 @@
   "license": "Apache-2.0",
   "homepage": "https://github.com/BrightspaceUI/tile",
   "ignore": [
+    "demo",
     "test",
     ".editorconfig",
     ".eslintrc.json",
@@ -12,36 +13,26 @@
     ".travis.yml",
     "CODEOWNERS",
     "package.json",
+    "polymer.json",
     "wct.conf.json"
   ],
   "dependencies": {
     "d2l-colors": "^3.1.2",
-    "d2l-dropdown": "^5.2.1 || ^6.0.0",
+    "d2l-dropdown": "^6.0.0",
     "polymer": "1 - 2"
   },
   "devDependencies": {
-    "d2l-typography": "^5.4.0 || ^6.0.0",
-    "iron-component-page": "PolymerElements/iron-component-page#1 - 2",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#1 - 2",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
-    "web-component-tester": "^6.0.0",
-    "d2l-menu": "^0.3.7 || ^1.0.3"
-  },
-  "resolutions": {
-    "d2l-colors": "^3.1.2"
+    "d2l-typography": "^6.0.8",
+    "iron-component-page": "^2.0.0",
+    "iron-demo-helpers": "^2.0.0",
+    "webcomponentsjs": "^1.0.0",
+    "web-component-tester": "^6.5.0",
+    "d2l-menu": "^1.0.4"
   },
   "variants": {
     "1.x": {
       "dependencies": {
-        "d2l-dropdown": "^5.2.1",
         "polymer": "^1.11.0"
-      },
-      "devDependencies": {
-        "d2l-menu": "^0.3.7",
-        "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-        "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
-        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
-        "web-component-tester": "^5.0.0"
       },
       "resolutions": {
         "webcomponentsjs": "^0.7"
