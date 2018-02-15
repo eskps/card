@@ -5,6 +5,7 @@
   "license": "Apache-2.0",
   "homepage": "https://github.com/BrightspaceUI/tile",
   "ignore": [
+    "demo",
     "test",
     ".editorconfig",
     ".eslintrc.json",
@@ -12,6 +13,7 @@
     ".travis.yml",
     "CODEOWNERS",
     "package.json",
+    "polymer.json",
     "wct.conf.json"
   ],
   "dependencies": {
