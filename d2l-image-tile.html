@@ -368,9 +368,9 @@
 			'blur': '_onBlur'
 		},
 		attached: function() {
-			this.addEventListener('focus', this._onFocus, true);
-			this.addEventListener('blur', this._onBlur, true);
 			Polymer.RenderStatus.afterNextRender(this, function() {
+				this.addEventListener('focus', this._onFocus, true);
+				this.addEventListener('blur', this._onBlur, true);
 				this._handleSlotChanged();
 				this._slotObserver = Polymer.dom(this.$['dropdown-slot']).observeNodes(this._handleSlotChanged.bind(this));
 			}.bind(this));
