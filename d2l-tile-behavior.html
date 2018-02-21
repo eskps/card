@@ -1,10 +1,15 @@
 <link rel="import" href="../polymer/polymer.html">
 <script>
-	/* @polymerBehavior D2L.PolymerBehaviors.TileBehavior */
-	var TileBehaviorImpl = {
+
+	window.D2L = window.D2L || {};
+	window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
+
+	/* @polymerBehavior */
+	D2L.PolymerBehaviors.TileBehavior = {
+
 		properties: {
 			/**
-			* A boolean that is true if the tile menu is open, otherwise false
+			* Indicates whether the menu is open.
 			*/
 			menuOpened: {
 				type: Boolean,
@@ -13,19 +18,20 @@
 				reflectToAttribute: true
 			}
 		},
+
 		listeners: {
 			'd2l-dropdown-open': '_onMenuOpen',
 			'd2l-dropdown-close': '_onMenuClose'
 		},
+
 		_onMenuOpen: function() {
 			this.menuOpened = true;
 		},
+
 		_onMenuClose: function() {
 			this.menuOpened = false;
 		}
+
 	};
 
-	window.D2L = window.D2L || {};
-	window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
-	D2L.PolymerBehaviors.TileBehavior = TileBehaviorImpl;
 </script>
