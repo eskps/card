@@ -1,6 +1,6 @@
 {
   "name": "d2l-tile",
-  "description": "Brightspace Tile",
+  "description": "Polymer-based web components for D2L tiles.",
   "private": true,
   "scripts": {
     "postinstall": "polymer install --variants",

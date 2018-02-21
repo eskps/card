@@ -40,7 +40,7 @@
 				pointer-events: none;
 			}
 
-			:host([no-mobile-more-button][hover-effect~="lower-menu"]:not(:hover):not([focused]):not([menu-opened])) d2l-dropdown {
+			:host([no-mobile-more-button][hover-effect~="lower-menu"]:not(:hover):not([focused]):not([menu-opened])) d2l-dropdown-more {
 				margin-top: -15px;
 			}
 
@@ -78,23 +78,23 @@
 				width: 100%;
 			}
 
-			d2l-dropdown {
+			d2l-dropdown-more {
 				margin: 0 15px 15px 15px;
 				right: 0;
 				top: 0;
 				transition: margin-top .25s;
 			}
 
-			:host([hover-effect~="lower-menu"]:not(:hover):not([focused]):not([menu-opened])) d2l-dropdown {
+			:host([hover-effect~="lower-menu"]:not(:hover):not([focused]):not([menu-opened])) d2l-dropdown-more {
 				margin-top: -15px;
 			}
 
-			:host-context([dir="rtl"]) d2l-dropdown {
+			:host-context([dir="rtl"]) d2l-dropdown-more {
 				left: 0;
 				right: auto;
 			}
 
-			:host(:dir(rtl)) d2l-dropdown {
+			:host(:dir(rtl)) d2l-dropdown-more {
 				left: 0;
 				right: auto;
 			}
@@ -104,7 +104,7 @@
 			}
 
 			@media only screen and (hover: hover), only screen and (-moz-touch-enabled: 0) {
-				:host([hover-effect~="lower-menu"]:not(:hover):not([focused]):not([menu-opened])) d2l-dropdown {
+				:host([hover-effect~="lower-menu"]:not(:hover):not([focused]):not([menu-opened])) d2l-dropdown-more {
 					margin-top: -15px;
 				}
 
@@ -261,17 +261,16 @@
 		</style>
 		<d2l-image-tile-base href="[[href]]">
 			<div class="d2l-image-tile-menu-area" slot="d2l-image-tile-base-menu-area">
-				<d2l-dropdown on-tap="_onDropdownClick">
-					<d2l-dropdown-more
-						id="dropdown-more"
-						label="[[dropdownLabel]]"
-						hidden$="[[!_shouldShowMenu(_showMenu, loading)]]">
-						<slot name="d2l-image-tile-dropdown"
-							id="dropdown-slot"
-							on-slot-changed="_handleSlotChange">
-						</slot>
-					</d2l-dropdown-more>
-				</d2l-dropdown>
+				<d2l-dropdown-more
+					on-tap="_onDropdownClick"
+					id="dropdown-more"
+					label="[[dropdownLabel]]"
+					hidden$="[[!_shouldShowMenu(_showMenu, loading)]]">
+					<slot name="d2l-image-tile-dropdown"
+						id="dropdown-slot"
+						on-slot-changed="_handleSlotChange">
+					</slot>
+				</d2l-dropdown-more>
 				<div class="d2l-image-tile-menu-adjacent-container">
 					<slot name="d2l-image-tile-menu-adjacent">
 					</slot>
@@ -368,9 +367,9 @@
 			'blur': '_onBlur'
 		},
 		attached: function() {
-			this.addEventListener('focus', this._onFocus, true);
-			this.addEventListener('blur', this._onBlur, true);
 			Polymer.RenderStatus.afterNextRender(this, function() {
+				this.addEventListener('focus', this._onFocus, true);
+				this.addEventListener('blur', this._onBlur, true);
 				this._handleSlotChanged();
 				this._slotObserver = Polymer.dom(this.$['dropdown-slot']).observeNodes(this._handleSlotChanged.bind(this));
 			}.bind(this));
