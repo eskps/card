@@ -52,7 +52,8 @@
 			}
 
 			.d2l-image-tile-image-container {
-				border-bottom: 1px solid;
+				border-bottom-width: inherit;
+				border-bottom-style: solid;
 				border-bottom-color: inherit;
 				border-top-left-radius: 6px;
 				border-top-right-radius: 6px;
@@ -259,7 +260,7 @@
 				right: auto;
 			}
 		</style>
-		<d2l-image-tile-base href="[[href]]">
+		<d2l-image-tile-base href="[[href]]" specified-tab-index="[[specifiedTabIndex]]">
 			<div class="d2l-image-tile-menu-area" slot="d2l-image-tile-base-menu-area">
 				<d2l-dropdown-more
 					on-tap="_onDropdownClick"
@@ -360,6 +361,13 @@
 			href: {
 				type: String,
 				value: null
+			},
+			/**
+			 * tabindex within the tile
+			**/
+			specifiedTabIndex: {
+				type: String,
+				value: '0'
 			}
 		},
 		listeners: {

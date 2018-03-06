@@ -19,12 +19,12 @@
 			}
 		</style>
 		<template is="dom-if" if="href=[[_hasHref(href)]]">
-			<a class="d2l-image-tile-base-link" href$=[[href]]>
+			<a class="d2l-image-tile-base-link" href$=[[href]] tabindex$=[[specifiedTabIndex]]>
 				<slot name="d2l-image-tile-base-content"></slot>
 			</a>
 		</template>
 		<template is="dom-if" if="[[!_hasHref(href)]]">
-			<div class="d2l-image-tile-base-div" tabindex="0">
+			<div class="d2l-image-tile-base-div" tabindex$=[[specifiedTabIndex]]>
 				<slot name="d2l-image-tile-base-content"></slot>
 			</div>
 		</template>
@@ -37,6 +37,10 @@
 			href: {
 				type: String,
 				value: null
+			},
+			specifiedTabIndex: {
+				type: String,
+				value: '0'
 			}
 		},
 		_hasHref: function(href) {
