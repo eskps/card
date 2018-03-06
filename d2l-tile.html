@@ -61,12 +61,12 @@
 			}
 		</style>
 		<template is="dom-if" if="[[_hasHref(href)]]">
-			<a class="d2l-tile-content-container" href$=[[href]]>
+			<a class="d2l-tile-content-container" href$=[[href]] tabindex$=[[specifiedTabIndex]]>
 				<slot></slot>
 			</a>
 		</template>
 		<template is="dom-if" if="[[!_hasHref(href)]]">
-			<div class="d2l-tile-content-container" tabindex="0">
+			<div class="d2l-tile-content-container" tabindex$=[[specifiedTabIndex]]>
 				<slot></slot>
 			</div>
 		</template>
@@ -98,6 +98,13 @@
 			href: {
 				type: String,
 				value: null
+			},
+			/**
+			 * tabindex within the tile
+			**/
+			specifiedTabIndex: {
+				type: String,
+				value: '0'
 			}
 		},
 		attached: function() {
