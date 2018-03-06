@@ -140,7 +140,7 @@ Alternatively, you can provide custom image content in the `d2l-image-tile-image
 ```
 
 #### Making the image tile into a link:
-You can make the tile into a link by passing in a `href` property
+You can make the tile into a link by passing in a `href` property and the `specified-tab-index` can be used to specify the tabindex of the tile (default 0)
 
 #### "More" menu
 
