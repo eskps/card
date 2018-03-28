@@ -213,7 +213,7 @@ Both `<d2l-tile>` and `<d2l-image-tile>` support setting an effect for when the 
 
 ### What if I want something partially overlapping the image???
 
-Stick it at the top of the content area and give it a negative top margin.
+Stick it in the `d2l-image-tile-image` slot along with the image and an offset.
 
 ### What if I want to make the tile clickable, but have another clickable element within
 
