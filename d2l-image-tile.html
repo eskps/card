@@ -104,7 +104,7 @@
 				transition: color .5s, background .5s, opacity .25s;
 			}
 
-			@media only screen and (hover: hover), only screen and (-moz-touch-enabled: 0) {
+			@media only screen and (hover: hover), only screen and (-moz-touch-enabled: 0), all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 				:host([hover-effect~="lower-menu"]:not(:hover):not([focused]):not([menu-opened])) d2l-dropdown-more {
 					margin-top: -15px;
 				}
