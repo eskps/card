@@ -1,0 +1,57 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../d2l-colors/d2l-colors.html">
+
+<!--
+`d2l-card`
+Polymer-based web components for card
+
+@demo demo/d2l-card.html
+-->
+
+<dom-module id="d2l-card">
+
+	<template strip-whitespace>
+		<style>
+			:host {
+				background-color: #ffffff;
+				border: 1px solid var(--d2l-color-gypsum);
+				border-radius: 6px;
+				box-sizing: border-box;
+				display: inline-block;
+				overflow: hidden;
+			}
+			.d2l-card-content {
+				padding: 1.5rem 1.2rem;
+			}
+			.d2l-card-footer {
+				padding: 0.6rem 1.2rem;
+			}
+			:host([subtle]) {
+				border-color: transparent;
+				box-shadow: 0 4px 8px 0 rgba(0,0,0,0.03);
+			}
+		</style>
+		<div class="d2l-card-header"><slot name="header"></slot></div>
+		<div class="d2l-card-content"><slot></slot></div>
+		<div class="d2l-card-footer"><slot name="footer"></slot></div>
+	</template>
+
+	<script>
+		Polymer({
+			is: 'd2l-card',
+
+			properties: {
+
+				/**
+				 * Indicates whether subtle container style should be applied (for non-white backgrounds).
+				 */
+				subtle: {
+					type: Boolean
+				}
+
+			}
+
+		});
+	</script>
+
+</dom-module>
