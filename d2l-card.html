@@ -23,7 +23,7 @@ Polymer-based web components for card
 			.d2l-card-content {
 				padding: 1.5rem 1.2rem;
 			}
-			.d2l-card-footer {
+			.d2l-card-footer[has-footer] {
 				padding: 0.6rem 1.2rem;
 			}
 			:host([subtle]) {
@@ -49,6 +49,20 @@ Polymer-based web components for card
 					type: Boolean
 				}
 
+			},
+
+			attached: function() {
+				this.listen(this.$$('.d2l-card-footer slot'), 'slotchange', '_onSlotChange');
+			},
+
+			detached: function() {
+				this.unlisten(this.$$('.d2l-card-footer slot'), 'slotchange', '_onSlotChange');
+			},
+
+			_onSlotChange: function() {
+				this.$$('.d2l-card-footer slot').assignedNodes().length > 0
+					? this.$$('.d2l-card-footer').setAttribute('has-footer', true)
+					: this.$$('.d2l-card-footer').removeAttribute('has-footer');
 			}
 
 		});
