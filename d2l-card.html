@@ -33,7 +33,7 @@ Polymer-based web components for card
 		</style>
 		<div class="d2l-card-header"><slot name="header"></slot></div>
 		<div class="d2l-card-content"><slot></slot></div>
-		<div class="d2l-card-footer"><slot name="footer"></slot></div>
+		<div class="d2l-card-footer"><slot name="footer" id="cardFooterSlot"></slot></div>
 	</template>
 
 	<script>
@@ -52,15 +52,20 @@ Polymer-based web components for card
 			},
 
 			attached: function() {
-				this.listen(this.$$('.d2l-card-footer slot'), 'slotchange', '_onSlotChange');
+				Polymer.RenderStatus.afterNextRender(this, function() {
+					this._handleFooterChanged();
+					this._footerSlotObserver = Polymer.dom(this.$.cardFooterSlot).observeNodes(this._handleFooterChanged.bind(this));
+				});
 			},
 
 			detached: function() {
-				this.unlisten(this.$$('.d2l-card-footer slot'), 'slotchange', '_onSlotChange');
+				if (this._footerSlotObserver) {
+					Polymer.dom(this.$.cardFooterSlot).unobserveNodes(this._footerSlotObserver);
+				}
 			},
 
-			_onSlotChange: function() {
-				this.$$('.d2l-card-footer slot').assignedNodes().length > 0
+			_handleFooterChanged: function() {
+				this.$$('.d2l-card-footer').childElementCount > 0
 					? this.$$('.d2l-card-footer').setAttribute('has-footer', true)
 					: this.$$('.d2l-card-footer').removeAttribute('has-footer');
 			}
