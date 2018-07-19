@@ -23,7 +23,7 @@ Polymer-based web components for card
 			.d2l-card-content {
 				padding: 1.5rem 1.2rem;
 			}
-			.d2l-card-footer[has-footer] {
+			::slotted([slot=footer]) {
 				padding: 0.6rem 1.2rem;
 			}
 			:host([subtle]) {
@@ -33,7 +33,7 @@ Polymer-based web components for card
 		</style>
 		<div class="d2l-card-header"><slot name="header"></slot></div>
 		<div class="d2l-card-content"><slot></slot></div>
-		<div class="d2l-card-footer"><slot name="footer" id="cardFooterSlot"></slot></div>
+		<div class="d2l-card-footer"><slot name="footer"></slot></div>
 	</template>
 
 	<script>
@@ -49,25 +49,6 @@ Polymer-based web components for card
 					type: Boolean
 				}
 
-			},
-
-			attached: function() {
-				Polymer.RenderStatus.afterNextRender(this, function() {
-					this._handleFooterChanged();
-					this._footerSlotObserver = Polymer.dom(this.$.cardFooterSlot).observeNodes(this._handleFooterChanged.bind(this));
-				});
-			},
-
-			detached: function() {
-				if (this._footerSlotObserver) {
-					Polymer.dom(this.$.cardFooterSlot).unobserveNodes(this._footerSlotObserver);
-				}
-			},
-
-			_handleFooterChanged: function() {
-				this.$$('.d2l-card-footer').childElementCount > 0
-					? this.$$('.d2l-card-footer').setAttribute('has-footer', true)
-					: this.$$('.d2l-card-footer').removeAttribute('has-footer');
 			}
 
 		});
