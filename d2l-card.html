@@ -1,5 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../d2l-colors/d2l-colors.html">
+<link rel="import" href="../d2l-fastdom-import/fastdom.html">
+<link rel="import" href="../d2l-link/d2l-link-behavior.html">
+<link rel="import" href="../d2l-polymer-behaviors/d2l-dom.html">
+<link rel="import" href="../d2l-polymer-behaviors/d2l-focusable-behavior.html">
 
 <!--
 `d2l-card`
@@ -17,30 +21,97 @@ Polymer-based web components for card
 				border: 1px solid var(--d2l-color-gypsum);
 				border-radius: 6px;
 				box-sizing: border-box;
+				display: inline-block;
+				overflow: hidden;
+			}
+			.d2l-card-container {
 				display: flex;
 				flex-direction: column;
-				overflow: hidden;
+				position: relative;
+				height: 100%;
+			}
+			a {
+				display: block;
+				flex: 1;
+				outline: none;
 			}
 			.d2l-card-content {
 				padding: 1.5rem 1.2rem;
-				flex-grow: 1;
 			}
-			.d2l-card-footer ::slotted([slot=footer]) {
-				padding: 0.6rem 1.2rem;
+			.d2l-card-actions {
+				position: absolute;
+				right: 0.6rem;
+				top: 0.6rem;
+			}
+			/* P2-shadow */
+			:host-context([dir="rtl"]) .d2l-card-actions {
+				left: 0.6rem;
+				right: auto;
+			}
+			/* P1-shady, P2-shady */
+			:host(:dir(rtl)) .d2l-card-actions {
+				left: 0.6rem;
+				right: auto;
+			}
+			.d2l-card-badge {
+				line-height: 0;
+				text-align: center;
+			}
+			.d2l-card-footer {
+				display: none;
+				flex: none;
+				padding: 0 1.2rem;
+			}
+			.d2l-card-footer[shown] {
+				display: block;
+			}
+			.d2l-card-footer-content {
+				border-top: 1px solid var(--d2l-color-gypsum);
+				padding: 0.6rem 0;
 			}
 			:host([subtle]) {
 				border-color: transparent;
 				box-shadow: 0 4px 8px 0 rgba(0,0,0,0.03);
+				-webkit-transition: transform 300ms ease-out;
+				transition: transform 300ms ease-out 50ms;
+			}
+			:host([subtle]:hover) {
+				box-shadow: 0 4px 18px 2px rgba(0,0,0,0.06);
+				transform: translateY(-4px);
+			}
+			:host([active]) {
+				border-color: rgba(0, 111, 191, 0.4);
+				box-shadow: 0 0 0 4px rgba(0, 111, 191, 0.3);
+			}
+			:host([subtle][active]:hover) {
+				border-color: rgba(0, 111, 191, 0.4);
+				box-shadow: 0 0 0 4px rgba(0, 111, 191, 0.3);
+				transform: translateY(-4px);
 			}
 		</style>
-		<div class="d2l-card-header"><slot name="header"></slot></div>
-		<div class="d2l-card-content"><slot name="content"></slot></div>
-		<div class="d2l-card-footer"><slot name="footer"></slot></div>
+		<div class="d2l-card-container">
+			<a class="d2l-focusable" download$="[[download]]" href$="[[href]]" hreflang="[[hreflang]]" rel="[[rel]]" target="[[target]]" type="[[type]]">
+				<div class="d2l-card-header"><slot name="header"></slot></div>
+				<div class="d2l-card-badge"><slot name="badge"></slot></div>
+				<div class="d2l-card-content"><slot name="content"></slot></div>
+			</a>
+			<div class="d2l-card-actions">
+				<slot name="actions"></slot>
+			</div>
+			<div class="d2l-card-footer">
+				<div class="d2l-card-footer-content"><slot name="footer"></slot></div>
+			</div>
+		</div>
 	</template>
 
 	<script>
 		Polymer({
 			is: 'd2l-card',
+
+			behaviors: [
+				D2L.PolymerBehaviors.Link.Behavior,
+				D2L.PolymerBehaviors.FocusableBehavior
+			],
 
 			properties: {
 
@@ -51,6 +122,72 @@ Polymer-based web components for card
 					type: Boolean
 				}
 
+			},
+
+			ready: function() {
+				this._onBadgeChanges = this._onBadgeChanges.bind(this);
+				this._onFooterChanges = this._onFooterChanges.bind(this);
+				this._onLinkBlur = this._onLinkBlur.bind(this);
+				this._onLinkFocus = this._onLinkFocus.bind(this);
+			},
+
+			attached: function() {
+				var badge = Polymer.dom(this.root).querySelector('.d2l-card-badge');
+				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer');
+				this._badgeObserver = Polymer.dom(badge).observeNodes(this._onBadgeChanges);
+				this._footerObserver = Polymer.dom(footer).observeNodes(this._onFooterChanges);
+				Polymer.RenderStatus.afterNextRender(this, function() {
+					var link = Polymer.dom(this.root).querySelector('a');
+					link.addEventListener('blur', this._onLinkBlur);
+					link.addEventListener('focus', this._onLinkFocus);
+				}.bind(this));
+			},
+
+			detached: function() {
+				var badge = Polymer.dom(this.root).querySelector('.d2l-card-badge');
+				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer');
+				if (this._badgeObserver) Polymer.dom(badge).unobserveNodes(this._badgeObserver);
+				if (this._footerObserver) Polymer.dom(footer).unobserveNodes(this._footerObserver);
+				var link = Polymer.dom(this.root).querySelector('a');
+				link.removeEventListener('blur', this._onLinkBlur);
+				link.removeEventListener('focus', this._onLinkFocus);
+			},
+
+			_onBadgeChanges: function(data) {
+				var elems = this.getEffectiveChildren();
+				if (!elems || elems.length === 0) {
+					return;
+				}
+				fastdom.measure(function() {
+					var height = data.target.getBoundingClientRect().height;
+					fastdom.mutate(function() {
+						data.target.style.marginTop = (-0.5 * height) + 'px';
+					});
+				});
+			},
+
+			_onFooterChanges: function(data) {
+				var elems = D2L.Dom.getComposedChildren(data.target.querySelector('.d2l-card-footer-content'));
+				var hasFooter = false;
+				if (elems.length > 0) {
+					if (elems[0].tagName === 'SLOT') elems = elems[0].assignedNodes();
+					hasFooter = (elems.length > 0);
+				}
+				fastdom.mutate(function() {
+					if (hasFooter) {
+						data.target.setAttribute('shown', 'shown');
+					} else {
+						data.target.removeAttribute('shown');
+					}
+				});
+			},
+
+			_onLinkBlur: function() {
+				this.removeAttribute('active', 'active');
+			},
+
+			_onLinkFocus: function() {
+				this.setAttribute('active', 'active');
 			}
 
 		});
