@@ -15,11 +15,13 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-card">
 				border: 1px solid var(--d2l-color-gypsum);
 				border-radius: 6px;
 				box-sizing: border-box;
-				display: inline-block;
+				display: flex;
+				flex-direction: column;
 				overflow: hidden;
 			}
 			.d2l-card-content {
 				padding: 1.5rem 1.2rem;
+				flex-grow: 1;
 			}
 			.d2l-card-footer ::slotted([slot=footer]) {
 				padding: 0.6rem 1.2rem;
@@ -30,7 +32,7 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-card">
 			}
 		</style>
 		<div class="d2l-card-header"><slot name="header"></slot></div>
-		<div class="d2l-card-content"><slot></slot></div>
+		<div class="d2l-card-content"><slot name="content"></slot></div>
 		<div class="d2l-card-footer"><slot name="footer"></slot></div>
 	</template>
 
