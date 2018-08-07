@@ -48,6 +48,7 @@
   "dependencies": {
     "@polymer/polymer": "^3.0.0",
     "d2l-colors": "git+https://github.com/BrightspaceUI/colors.git#polymer-3",
+    "d2l-dropdown": "git+https://github.com/BrightspaceUI/dropdown.git#polymer-3",
     "d2l-icons": "git+https://github.com/BrightspaceUI/icons.git#polymer-3"
   }
 }
