@@ -12,6 +12,8 @@
 		<link rel="import" href="../../d2l-button/d2l-button-icon.html">
 		<link rel="import" href="../../d2l-icons/tier1-icons.html">
 		<link rel="import" href="../d2l-card.html">
+		<link rel="import" href="../d2l-card-content-title.html">
+		<link rel="import" href="../d2l-card-content-meta.html">
 		<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles"></style>
 		</custom-style>
@@ -26,6 +28,9 @@
 				background-color: #f6f7f8;
 				margin: -20px;
 				padding: 20px;
+			}
+			.badge {
+				object-fit: cover; height: 100px; border-radius: 6px; border: 1px solid white;
 			}
 		</style>
 	</head>
@@ -43,8 +48,13 @@
 							<img slot="header" alt="" style="display: block; width: 100%; height: 150px;" src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia21970-opt.jpg" />
 							<d2l-button-icon slot="actions" text="unpin" icon="d2l-tier1:pin-filled"></d2l-button-icon>
 							<d2l-button-icon slot="actions" text="more" icon="d2l-tier1:more"></d2l-button-icon>
-							<div slot="content">Jupiter</div>
-							<img slot="badge" alt="" style="object-fit: cover; height: 100px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Galileo.arp.300pix.jpg/195px-Galileo.arp.300pix.jpg">
+							<div slot="content">
+								<d2l-card-content-title>Jupiter</d2l-card-content-title>
+								<d2l-card-content-meta>
+									Gas Giant
+								</d2l-card-content-meta>
+							</div>
+							<img slot="badge" alt="" class="badge" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Galileo.arp.300pix.jpg/195px-Galileo.arp.300pix.jpg">
 							<div slot="footer">Secondary Actions</div>
 						</d2l-card>
 					</div>
@@ -60,8 +70,13 @@
 						<img slot="header" alt="" style="display: block; width: 100%; height: 150px;" src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia21970-opt.jpg" />
 						<d2l-button-icon slot="actions" text="unpin" icon="d2l-tier1:pin-filled"></d2l-button-icon>
 						<d2l-button-icon slot="actions" text="more" icon="d2l-tier1:more"></d2l-button-icon>
-						<div slot="content">Jupiter</div>
-						<img slot="badge" alt="" style="object-fit: cover; height: 100px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Galileo.arp.300pix.jpg/195px-Galileo.arp.300pix.jpg">
+						<div slot="content">
+							<d2l-card-content-title>Jupiter</d2l-card-content-title>
+							<d2l-card-content-meta>
+								Gas Giant
+							</d2l-card-content-meta>
+						</div>
+						<img slot="badge" alt="" class="badge" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Galileo.arp.300pix.jpg/195px-Galileo.arp.300pix.jpg">
 						<div slot="footer">Secondary Actions</div>
 					</d2l-card>
 				</template>

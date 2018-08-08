@@ -31,9 +31,11 @@ Polymer-based web components for card
 				height: 100%;
 			}
 			a {
+				color: var(--d2l-color-ferrite);
 				display: block;
 				flex: 1;
 				outline: none;
+				text-decoration: none;
 			}
 			.d2l-card-content {
 				padding: 1.5rem 1.2rem;
@@ -88,9 +90,15 @@ Polymer-based web components for card
 				box-shadow: 0 0 0 4px rgba(0, 111, 191, 0.3);
 				transform: translateY(-4px);
 			}
+
+			:host .d2l-card-actions ::slotted(d2l-button-icon) {
+				--d2l-button-icon-min-height: 1.8rem;
+				--d2l-button-icon-min-width: 1.8rem;
+			}
+
 		</style>
 		<div class="d2l-card-container">
-			<a class="d2l-focusable" download$="[[download]]" href$="[[href]]" hreflang="[[hreflang]]" rel="[[rel]]" target="[[target]]" type="[[type]]">
+			<a class="d2l-focusable" aria-label="Jovian" download$="[[download]]" href$="[[href]]" hreflang="[[hreflang]]" rel="[[rel]]" target="[[target]]" type="[[type]]">
 				<div class="d2l-card-header"><slot name="header"></slot></div>
 				<div class="d2l-card-badge"><slot name="badge"></slot></div>
 				<div class="d2l-card-content"><slot name="content"></slot></div>
