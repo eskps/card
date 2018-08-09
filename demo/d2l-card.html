@@ -9,7 +9,12 @@
 		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
 		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 		<link rel="import" href="../../d2l-typography/d2l-typography.html">
+		<link rel="import" href="../../d2l-button/d2l-button-icon.html">
+		<link rel="import" href="../../d2l-status-indicator/d2l-status-indicator.html">
+		<link rel="import" href="../../d2l-icons/tier1-icons.html">
 		<link rel="import" href="../d2l-card.html">
+		<link rel="import" href="../d2l-card-content-title.html">
+		<link rel="import" href="../d2l-card-content-meta.html">
 		<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles"></style>
 		</custom-style>
@@ -25,23 +30,161 @@
 				margin: -20px;
 				padding: 20px;
 			}
+			.badge {
+				object-fit: cover;
+				height: 100px;
+				border-radius: 6px;
+				border: 1px solid white;
+			}
+			.badge-status {
+				background-color: white;
+				border: 1px solid white;
+				border-radius: 0.6rem;
+				display: inline-block;
+			}
 		</style>
 	</head>
 	<body unresolved class="d2l-typography">
 		<div class="vertical-section-container centered">
 
-			<h3>Card</h3>
+			<h3>Card (subtle)</h3>
 
 			<demo-snippet>
 				<template>
 					<div class="subtle-demo">
-					<d2l-card subtle>
-						<div slot="header">
-							<img style="width: 300px; height: 150px;" src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia21970-opt.jpg" />
-						</div>
+						<d2l-card subtle text="Jovian" href="https://en.wikipedia.org/wiki/Jupiter"
+							style="width: 300px; height: 500px;">
+							<img slot="header" alt="" style="display: block; width: 100%; height: 150px;" src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia21970-opt.jpg" />
+							<d2l-button-icon slot="actions" text="unpin" icon="d2l-tier1:pin-filled"></d2l-button-icon>
+							<d2l-button-icon slot="actions" text="more" icon="d2l-tier1:more"></d2l-button-icon>
+							<div slot="content">
+								<d2l-card-content-title>Jupiter</d2l-card-content-title>
+								<d2l-card-content-meta>
+									<div>Gas Giant</div>
+									<div>Orbital Period: 11.86yr</div>
+									<div>Orbital Speed: 13.07km/s</div>
+									<div>Known Satellites: 79</div>
+									<div>Volume: 1321 Earths</div>
+									<div>Mass: 317.8 Earths</div>
+									<div>Surface Temp: 165-112K</div>
+								</d2l-card-content-meta>
+							</div>
+							<img slot="badge" alt="" class="badge" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Galileo.arp.300pix.jpg/195px-Galileo.arp.300pix.jpg">
+							<div slot="footer">Secondary Actions</div>
+						</d2l-card>
+					</div>
+				</template>
+			</demo-snippet>
+
+			<h3>Card (status indicator badge)</h3>
+
+			<demo-snippet>
+				<template>
+					<div class="subtle-demo">
+						<d2l-card subtle text="Jovian" href="https://en.wikipedia.org/wiki/Jupiter"
+							style="width: 300px; height: 500px;">
+							<img slot="header" alt="" style="display: block; width: 100%; height: 150px;" src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia21970-opt.jpg" />
+							<d2l-button-icon slot="actions" text="unpin" icon="d2l-tier1:pin-filled"></d2l-button-icon>
+							<d2l-button-icon slot="actions" text="more" icon="d2l-tier1:more"></d2l-button-icon>
+							<div slot="content">
+								<d2l-card-content-title>Jupiter</d2l-card-content-title>
+								<d2l-card-content-meta>
+									<div>Gas Giant</div>
+									<div>Orbital Period: 11.86yr</div>
+									<div>Orbital Speed: 13.07km/s</div>
+									<div>Known Satellites: 79</div>
+									<div>Volume: 1321 Earths</div>
+									<div>Mass: 317.8 Earths</div>
+									<div>Surface Temp: 165-112K</div>
+								</d2l-card-content-meta>
+							</div>
+							<div class="badge-status" slot="badge">
+								<d2l-status-indicator text="Success" state="success"></d2l-status-indicator>
+							</div>
+							<div slot="footer">Secondary Actions</div>
+						</d2l-card>
+					</div>
+				</template>
+			</demo-snippet>
+
+			<h3>Card (subtle, no link)</h3>
+
+			<demo-snippet>
+				<template>
+					<div class="subtle-demo">
+						<d2l-card subtle text="Jovian"
+							style="width: 300px; height: 500px;">
+							<img slot="header" alt="" style="display: block; width: 100%; height: 150px;" src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia21970-opt.jpg" />
+							<d2l-button-icon slot="actions" text="unpin" icon="d2l-tier1:pin-filled"></d2l-button-icon>
+							<d2l-button-icon slot="actions" text="more" icon="d2l-tier1:more"></d2l-button-icon>
+							<div slot="content">
+								<d2l-card-content-title>Jupiter</d2l-card-content-title>
+								<d2l-card-content-meta>
+									<div>Gas Giant</div>
+									<div>Orbital Period: 11.86yr</div>
+									<div>Orbital Speed: 13.07km/s</div>
+									<div>Known Satellites: 79</div>
+									<div>Volume: 1321 Earths</div>
+									<div>Mass: 317.8 Earths</div>
+									<div>Surface Temp: 165-112K</div>
+								</d2l-card-content-meta>
+							</div>
+							<img slot="badge" alt="" class="badge" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Galileo.arp.300pix.jpg/195px-Galileo.arp.300pix.jpg">
+							<div slot="footer">Secondary Actions</div>
+						</d2l-card>
+					</div>
+				</template>
+			</demo-snippet>
+
+			<h3>Card</h3>
+
+			<demo-snippet>
+				<template>
+					<d2l-card text="Jovian" href="https://en.wikipedia.org/wiki/Jupiter"
+						style="width: 300px; height: 500px;">
+						<img slot="header" alt="" style="display: block; width: 100%; height: 150px;" src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia21970-opt.jpg" />
+						<d2l-button-icon slot="actions" text="unpin" icon="d2l-tier1:pin-filled"></d2l-button-icon>
+						<d2l-button-icon slot="actions" text="more" icon="d2l-tier1:more"></d2l-button-icon>
 						<div slot="content">
-							Jupiter
+							<d2l-card-content-title>Jupiter</d2l-card-content-title>
+							<d2l-card-content-meta>
+								<div>Gas Giant</div>
+								<div>Orbital Period: 11.86yr</div>
+								<div>Orbital Speed: 13.07km/s</div>
+								<div>Known Satellites: 79</div>
+								<div>Volume: 1321 Earths</div>
+								<div>Mass: 317.8 Earths</div>
+								<div>Surface Temp: 165-112K</div>
+							</d2l-card-content-meta>
 						</div>
+						<img slot="badge" alt="" class="badge" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Galileo.arp.300pix.jpg/195px-Galileo.arp.300pix.jpg">
+						<div slot="footer">Secondary Actions</div>
+					</d2l-card>
+				</template>
+			</demo-snippet>
+
+			<h3>Card (no link)</h3>
+
+			<demo-snippet>
+				<template>
+					<d2l-card text="Jovian"
+						style="width: 300px; height: 500px;">
+						<img slot="header" alt="" style="display: block; width: 100%; height: 150px;" src="https://www.nasa.gov/sites/default/files/thumbnails/image/pia21970-opt.jpg" />
+						<d2l-button-icon slot="actions" text="unpin" icon="d2l-tier1:pin-filled"></d2l-button-icon>
+						<d2l-button-icon slot="actions" text="more" icon="d2l-tier1:more"></d2l-button-icon>
+						<div slot="content">
+							<d2l-card-content-title>Jupiter</d2l-card-content-title>
+							<d2l-card-content-meta>
+								<div>Gas Giant</div>
+								<div>Orbital Period: 11.86yr</div>
+								<div>Orbital Speed: 13.07km/s</div>
+								<div>Known Satellites: 79</div>
+								<div>Volume: 1321 Earths</div>
+								<div>Mass: 317.8 Earths</div>
+								<div>Surface Temp: 165-112K</div>
+							</d2l-card-content-meta>
+						</div>
+						<img slot="badge" alt="" class="badge" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Galileo.arp.300pix.jpg/195px-Galileo.arp.300pix.jpg">
 						<div slot="footer">Secondary Actions</div>
 					</d2l-card>
 				</template>
