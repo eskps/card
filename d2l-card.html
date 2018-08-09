@@ -2,6 +2,7 @@
 <link rel="import" href="../d2l-colors/d2l-colors.html">
 <link rel="import" href="../d2l-fastdom-import/fastdom.html">
 <link rel="import" href="../d2l-link/d2l-link-behavior.html">
+<link rel="import" href="../d2l-offscreen/d2l-offscreen-shared-styles.html">
 <link rel="import" href="../d2l-polymer-behaviors/d2l-dom.html">
 <link rel="import" href="../d2l-polymer-behaviors/d2l-focusable-behavior.html">
 
@@ -15,7 +16,7 @@ Polymer-based web components for card
 <dom-module id="d2l-card">
 
 	<template strip-whitespace>
-		<style>
+		<style include="d2l-offscreen-shared-styles">
 			:host {
 				background-color: #ffffff;
 				border: 1px solid var(--d2l-color-gypsum);
@@ -30,12 +31,19 @@ Polymer-based web components for card
 				position: relative;
 				height: 100%;
 			}
-			a {
-				color: var(--d2l-color-ferrite);
-				display: block;
+			.d2l-card-link-container {
 				flex: 1;
-				outline: none;
-				text-decoration: none;
+			}
+			.d2l-card-link-text {
+				display: inline-block;
+				@apply --d2l-offscreen;
+			}
+			a.d2l-focusable {
+				display: block;
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				z-index: 1;
 			}
 			.d2l-card-content {
 				padding: 1.5rem 1.2rem;
@@ -44,6 +52,7 @@ Polymer-based web components for card
 				position: absolute;
 				right: 0.6rem;
 				top: 0.6rem;
+				z-index: 2;
 			}
 			/* P2-shadow */
 			:host-context([dir="rtl"]) .d2l-card-actions {
@@ -63,6 +72,7 @@ Polymer-based web components for card
 				display: none;
 				flex: none;
 				padding: 0 1.2rem;
+				z-index: 2;
 			}
 			.d2l-card-footer[shown] {
 				display: block;
@@ -98,11 +108,14 @@ Polymer-based web components for card
 
 		</style>
 		<div class="d2l-card-container">
-			<a class="d2l-focusable" aria-label="Jovian" download$="[[download]]" href$="[[href]]" hreflang="[[hreflang]]" rel="[[rel]]" target="[[target]]" type="[[type]]">
+			<div class="d2l-card-link-container">
+				<a class="d2l-focusable" aria-label="Jovian" download$="[[download]]" href$="[[href]]" hreflang="[[hreflang]]" rel="[[rel]]" target="[[target]]" type="[[type]]">
+					<span class="d2l-card-link-text">[[text]]</span>
+				</a>
 				<div class="d2l-card-header"><slot name="header"></slot></div>
 				<div class="d2l-card-badge"><slot name="badge"></slot></div>
 				<div class="d2l-card-content"><slot name="content"></slot></div>
-			</a>
+			</div>
 			<div class="d2l-card-actions">
 				<slot name="actions"></slot>
 			</div>
@@ -127,7 +140,16 @@ Polymer-based web components for card
 				 * Indicates whether subtle container style should be applied (for non-white backgrounds).
 				 */
 				subtle: {
-					type: Boolean
+					type: Boolean,
+					reflectToAttribute: true
+				},
+
+				/**
+				 * Accessible text for the link.
+				 */
+				text: {
+					type: String,
+					reflectToAttribute: true
 				}
 
 			},
