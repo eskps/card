@@ -100,12 +100,11 @@ Polymer-based web components for card
 				box-shadow: 0 0 0 4px rgba(0, 111, 191, 0.3);
 				transform: translateY(-4px);
 			}
-
-			:host .d2l-card-actions ::slotted(d2l-button-icon) {
-				--d2l-button-icon-min-height: 1.8rem;
-				--d2l-button-icon-min-width: 1.8rem;
+			:host(:not([href])),
+			:host([subtle]:not([href])) {
+				box-shadow: none;
+				transform: none;
 			}
-
 		</style>
 		<div class="d2l-card-container">
 			<div class="d2l-card-link-container">
