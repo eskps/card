@@ -212,11 +212,15 @@ Polymer-based web components for card
 			},
 
 			_onLinkBlur: function() {
-				this.removeAttribute('active', 'active');
+				fastdom.mutate(function() {
+					this.removeAttribute('active', 'active');
+				}.bind(this));
 			},
 
 			_onLinkFocus: function() {
-				this.setAttribute('active', 'active');
+				fastdom.mutate(function() {
+					this.setAttribute('active', 'active');
+				}.bind(this));
 			}
 
 		});
