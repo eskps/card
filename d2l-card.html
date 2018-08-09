@@ -5,6 +5,7 @@
 <link rel="import" href="../d2l-offscreen/d2l-offscreen-shared-styles.html">
 <link rel="import" href="../d2l-polymer-behaviors/d2l-dom.html">
 <link rel="import" href="../d2l-polymer-behaviors/d2l-focusable-behavior.html">
+<link rel="import" href="../d2l-resize-observer-polyfill-import/resize-observer.html">
 
 <!--
 `d2l-card`
@@ -154,7 +155,7 @@ Polymer-based web components for card
 			},
 
 			ready: function() {
-				this._onBadgeChanges = this._onBadgeChanges.bind(this);
+				this._onBadgeResize = this._onBadgeResize.bind(this);
 				this._onFooterChanges = this._onFooterChanges.bind(this);
 				this._onLinkBlur = this._onLinkBlur.bind(this);
 				this._onLinkFocus = this._onLinkFocus.bind(this);
@@ -163,7 +164,8 @@ Polymer-based web components for card
 			attached: function() {
 				var badge = Polymer.dom(this.root).querySelector('.d2l-card-badge');
 				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer');
-				this._badgeObserver = Polymer.dom(badge).observeNodes(this._onBadgeChanges);
+				this._badgeObserver = new ResizeObserver(this._onBadgeResize);
+				this._badgeObserver.observe(badge);
 				this._footerObserver = Polymer.dom(footer).observeNodes(this._onFooterChanges);
 				Polymer.RenderStatus.afterNextRender(this, function() {
 					var link = Polymer.dom(this.root).querySelector('a');
@@ -175,23 +177,20 @@ Polymer-based web components for card
 			detached: function() {
 				var badge = Polymer.dom(this.root).querySelector('.d2l-card-badge');
 				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer');
-				if (this._badgeObserver) Polymer.dom(badge).unobserveNodes(this._badgeObserver);
+				if (this._badgeObserver) this._badgeObserver.unobserve(badge);
 				if (this._footerObserver) Polymer.dom(footer).unobserveNodes(this._footerObserver);
 				var link = Polymer.dom(this.root).querySelector('a');
 				link.removeEventListener('blur', this._onLinkBlur);
 				link.removeEventListener('focus', this._onLinkFocus);
 			},
 
-			_onBadgeChanges: function(data) {
-				var elems = this.getEffectiveChildren();
-				if (!elems || elems.length === 0) {
+			_onBadgeResize: function(entries) {
+				if (!entries || entries.length === 0) {
 					return;
 				}
-				fastdom.measure(function() {
-					var height = data.target.getBoundingClientRect().height;
-					fastdom.mutate(function() {
-						data.target.style.marginTop = (-0.5 * height) + 'px';
-					});
+				var entry = entries[0];
+				fastdom.mutate(function() {
+					entry.target.style.marginTop = (-0.5 * entry.contentRect.height) + 'px';
 				});
 			},
 
