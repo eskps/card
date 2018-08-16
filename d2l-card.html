@@ -66,6 +66,9 @@ Polymer-based web components for card
 				left: 0.6rem;
 				right: auto;
 			}
+			.d2l-card-actions ::slotted(*) {
+				margin-left: 0.3rem;
+			}
 			.d2l-card-badge {
 				line-height: 0;
 				padding: 0 1.2rem;
@@ -108,7 +111,7 @@ Polymer-based web components for card
 				transform: none;
 			}
 		</style>
-		<div class="d2l-card-container">
+		<div class="d2l-card-container d2l-visible-on-ancestor-target">
 			<div class="d2l-card-link-container">
 				<a class="d2l-focusable" download$="[[download]]" href$="[[href]]" hreflang="[[hreflang]]" rel="[[rel]]" target="[[target]]" type="[[type]]">
 					<span class="d2l-card-link-text">[[text]]</span>
