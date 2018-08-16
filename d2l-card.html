@@ -68,20 +68,20 @@ Polymer-based web components for card
 			}
 			.d2l-card-badge {
 				line-height: 0;
-				text-align: center;
+				padding: 0 1.2rem;
 			}
 			.d2l-card-footer {
-				display: none;
 				flex: none;
 				padding: 0 1.2rem;
 				z-index: 2;
 			}
-			.d2l-card-footer[shown] {
-				display: block;
-			}
 			.d2l-card-footer-content {
 				border-top: 1px solid var(--d2l-color-gypsum);
 				padding: 0.6rem 0;
+			}
+			.d2l-card-footer-content.d2l-card-footer-content-hidden {
+				@apply --d2l-offscreen;
+				height: auto;
 			}
 			:host([subtle]) {
 				border-color: transparent;
@@ -121,7 +121,7 @@ Polymer-based web components for card
 				<slot name="actions"></slot>
 			</div>
 			<div class="d2l-card-footer">
-				<div class="d2l-card-footer-content"><slot name="footer"></slot></div>
+				<div class="d2l-card-footer-content d2l-card-footer-content-hidden"><slot name="footer"></slot></div>
 			</div>
 		</div>
 	</template>
@@ -157,17 +157,18 @@ Polymer-based web components for card
 
 			ready: function() {
 				this._onBadgeResize = this._onBadgeResize.bind(this);
-				this._onFooterChanges = this._onFooterChanges.bind(this);
+				this._onFooterResize = this._onFooterResize.bind(this);
 				this._onLinkBlur = this._onLinkBlur.bind(this);
 				this._onLinkFocus = this._onLinkFocus.bind(this);
 			},
 
 			attached: function() {
 				var badge = Polymer.dom(this.root).querySelector('.d2l-card-badge');
-				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer');
+				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer-content');
 				this._badgeObserver = new ResizeObserver(this._onBadgeResize);
 				this._badgeObserver.observe(badge);
-				this._footerObserver = Polymer.dom(footer).observeNodes(this._onFooterChanges);
+				this._footerObserver = new ResizeObserver(this._onFooterResize);
+				this._footerObserver.observe(footer);
 				Polymer.RenderStatus.afterNextRender(this, function() {
 					var link = Polymer.dom(this.root).querySelector('a');
 					link.addEventListener('blur', this._onLinkBlur);
@@ -177,9 +178,9 @@ Polymer-based web components for card
 
 			detached: function() {
 				var badge = Polymer.dom(this.root).querySelector('.d2l-card-badge');
-				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer');
+				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer-content');
 				if (this._badgeObserver) this._badgeObserver.unobserve(badge);
-				if (this._footerObserver) Polymer.dom(footer).unobserveNodes(this._footerObserver);
+				if (this._footerObserver) this._footerObserver.unobserve(footer);
 				var link = Polymer.dom(this.root).querySelector('a');
 				link.removeEventListener('blur', this._onLinkBlur);
 				link.removeEventListener('focus', this._onLinkFocus);
@@ -195,20 +196,20 @@ Polymer-based web components for card
 				});
 			},
 
-			_onFooterChanges: function(data) {
-				var elems = D2L.Dom.getComposedChildren(data.target.querySelector('.d2l-card-footer-content'));
-				var hasFooter = false;
-				if (elems.length > 0) {
-					if (elems[0].tagName === 'SLOT') elems = elems[0].assignedNodes();
-					hasFooter = (elems.length > 0);
+			_onFooterResize: function(entries) {
+				if (!entries || entries.length === 0) {
+					return;
 				}
-				fastdom.mutate(function() {
-					if (hasFooter) {
-						data.target.setAttribute('shown', 'shown');
-					} else {
-						data.target.removeAttribute('shown');
-					}
-				});
+				var entry = entries[0];
+				if (entry.contentRect.height === 0 && !entry.target.classList.contains('d2l-card-footer-content-hidden')) {
+					fastdom.mutate(function() {
+						entry.target.classList.add('d2l-card-footer-content-hidden');
+					});
+				} else if (entry.contentRect.height > 0 && entry.target.classList.contains('d2l-card-footer-content-hidden')) {
+					fastdom.mutate(function() {
+						entry.target.classList.remove('d2l-card-footer-content-hidden');
+					});
+				}
 			},
 
 			_onLinkBlur: function() {
