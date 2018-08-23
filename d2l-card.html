@@ -56,7 +56,8 @@ Polymer-based web components for card
 				position: absolute;
 				right: 0.6rem;
 				top: 0.6rem;
-				z-index: 2;
+				/* this must be higher than footer z-index so dropdowns will be on top */
+				z-index: 3;
 			}
 			/* P2-shadow */
 			:host-context([dir="rtl"]) .d2l-card-actions {
