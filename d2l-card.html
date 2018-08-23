@@ -71,6 +71,16 @@ Polymer-based web components for card
 			.d2l-card-actions ::slotted(*) {
 				margin-left: 0.3rem;
 			}
+			/* P2-shadow */
+			:host-context([dir="rtl"]) .d2l-card-actions ::slotted(*) {
+				margin-left: 0;
+				margin-right: 0.3rem;
+			}
+			/* P1-shady, P2-shady */
+			:host(:dir(rtl)) .d2l-card-actions ::slotted(*) {
+				margin-left: 0;
+				margin-right: 0.3rem;
+			}
 			.d2l-card-badge {
 				line-height: 0;
 				padding: 0 1.2rem;
