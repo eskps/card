@@ -14,9 +14,11 @@ bower install d2l-card
 
 ## Usage
 
-Include the [webcomponents.js](http://webcomponents.org/polyfills/) polyfill loader (for browsers who don't natively support web components), then import the component or behavior.
+Include the [webcomponents.js](http://webcomponents.org/polyfills/) polyfill loader (for browsers who don't natively support web components), then import the component and add to your page.
 
 ### Component
+
+<img src="/screenshots/d2l-card.gif?raw=true">
 
 #### HTML
 
