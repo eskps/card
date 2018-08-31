@@ -41,7 +41,7 @@ Then add the `d2l-card`, provide an `href` if relevant, and provide elements for
 </d2l-card>
 ```
 
-Slots:
+***Slots:***
 
 * `content` (required): The primary content such as title and supplementary info (no actionable elements)
 * `header` (options): Header content, such as course image (no actionable elements)
@@ -49,7 +49,7 @@ Slots:
 * `badge` (options): Badge content, such as a profile image or status indicator
 * `actions` (options): Buttons and dropdown openers to be placed in top right corner of header
 
-Properties:
+***Properties:***
 
 * `text` (required): accessible text for the card (will be announced when AT user focused on card)
 * `href` (optional): the location for the primary action/navigation
