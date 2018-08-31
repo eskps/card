@@ -44,10 +44,10 @@ Then add the `d2l-card`, provide an `href` if relevant, and provide elements for
 ***Slots:***
 
 * `content` (required): The primary content such as title and supplementary info (no actionable elements)
-* `header` (options): Header content, such as course image (no actionable elements)
-* `footer` (options): Footer content, such secondary actions
-* `badge` (options): Badge content, such as a profile image or status indicator
-* `actions` (options): Buttons and dropdown openers to be placed in top right corner of header
+* `header` (optional): Header content, such as course image (no actionable elements)
+* `footer` (optional): Footer content, such secondary actions
+* `badge` (optional): Badge content, such as a profile image or status indicator
+* `actions` (optional): Buttons and dropdown openers to be placed in top right corner of header
 
 ***Properties:***
 
