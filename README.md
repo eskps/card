@@ -5,6 +5,8 @@
 
 A [Polymer](https://www.polymer-project.org/)-based web component for cards.
 
+<img src="/screenshots/d2l-card.gif?raw=true">
+
 ## Installation
 
 `d2l-card` can be installed from [Bower][bower-url]:
@@ -14,30 +16,58 @@ bower install d2l-card
 
 ## Usage
 
-Include the [webcomponents.js](http://webcomponents.org/polyfills/) polyfill loader (for browsers who don't natively support web components), then import the component and add to your page.
-
-### Component
-
-<img src="/screenshots/d2l-card.gif?raw=true">
-
-#### HTML
+Include the [webcomponents.js](http://webcomponents.org/polyfills/) polyfill loader (for browsers who don't natively support web components), then import `d2l-card.html`:
 
 ```html
 <head>
-  <script src="../webcomponentsjs/webcomponents-loader.js"></script>
-  <link rel="import" href="../d2l-card/d2l-card.html">
+	<script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+	<link rel="import" href="bower_components/d2l-card/d2l-card.html">
 </head>
 ```
 
 Then add the `d2l-card`, provide an `href` if relevant, and provide elements for the slots as needed.
 
+<!---
+```
+<custom-element-demo>
+  <template>
+    <script src="../webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="../d2l-typography/d2l-typography.html">
+    <link rel="import" href="d2l-card.html">
+    <link rel="import" href="../d2l-dropdown/d2l-dropdown-more.html">
+    <link rel="import" href="../d2l-dropdown/d2l-dropdown-content.html">
+    <link rel="import" href="../d2l-button/d2l-button-icon.html">
+    <custom-style include="d2l-typography">
+      <style is="custom-style" include="d2l-typography"></style>
+    </custom-style>
+    <style>
+      html {
+        font-size: 20px;
+        font-family: 'Lato', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+      }
+      d2l-card {
+        height: 300px;
+        width: 240px;
+      }
+      .course-image {
+        display: block;
+        width: 100%;
+      }
+    </style>
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 ```html
-<d2l-card text="Hydrology" href="...">
-  <img slot="header" ... />
-  <d2l-dropdown-more slot="actions" ... >...</d2l-dropdown-more>
-  <d2l-button-icon slot="actions" ... ></d2l-button-icon>
-  <div slot="content">...</div>
-  <div slot="footer">...</div>
+<d2l-card text="Hydrogeology" href="https://en.wikipedia.org/wiki/Hydrogeology">
+	<img slot="header" alt="" class="course-image" src="https://s.brightspace.com/course-images/images/38e839b1-37fa-470c-8830-b189ce4ae134/tile-high-density-max-size.jpg" />
+	<d2l-dropdown-more slot="actions" translucent visible-on-ancestor text="Open!">
+		<d2l-dropdown-content><div>This is where you could put the super cool features for your card!</div><br><div>As with all d2l-dropdowns, you can choose between a generic dropdown container, or a menu specific one.</div></d2l-dropdown-content>
+	</d2l-dropdown-more>
+	<d2l-button-icon slot="actions" translucent text="unpin" icon="d2l-tier1:pin-filled"></d2l-button-icon>
+	<div slot="content">Hydrogeology</div>
+	<div slot="footer">Secondary Actions</div>
 </d2l-card>
 ```
 
@@ -60,28 +90,28 @@ Then add the `d2l-card`, provide an `href` if relevant, and provide elements for
 
 After cloning the repo, run `npm install` to install dependencies.
 
-If you don't have it already, install the [Polymer CLI](https://www.polymer-project.org/2.0/docs/tools/polymer-cli) globally:
+If you don't have it already, install the [Polymer CLI](https://www.polymer-project.org/3.0/docs/tools/polymer-cli) globally:
 
 ```shell
 npm install -g polymer-cli
 ```
 
-To start a [local web server](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#serve) that hosts the demo page and tests:
+To start a [local web server](https://www.polymer-project.org/3.0/docs/tools/polymer-cli-commands#serve) that hosts the demo page and tests:
 
 ```shell
 polymer serve
 ```
 
-To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#lint)):
+To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/3.0/docs/tools/polymer-cli-commands#lint)):
 
 ```shell
 npm run lint
 ```
 
-To run unit tests locally using [Polymer test](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#tests):
+To run unit tests locally using [Polymer test](https://www.polymer-project.org/3.0/docs/tools/polymer-cli-commands#tests):
 
 ```shell
-polymer test --skip-plugin sauce
+npm run test:polymer:local
 ```
 
 To lint AND run local unit tests:
