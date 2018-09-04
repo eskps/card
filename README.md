@@ -20,8 +20,8 @@ Include the [webcomponents.js](http://webcomponents.org/polyfills/) polyfill loa
 
 ```html
 <head>
-	<script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-	<link rel="import" href="bower_components/d2l-card/d2l-card.html">
+  <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+  <link rel="import" href="bower_components/d2l-card/d2l-card.html">
 </head>
 ```
 
