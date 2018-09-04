@@ -1,6 +1,6 @@
 {
-  "name": "d2l-tile",
-  "description": "Polymer-based web components for D2L tiles.",
+  "name": "d2l-card",
+  "description": "Polymer-based web components for D2L card.",
   "private": true,
   "scripts": {
     "postinstall": "polymer install --variants",
@@ -11,18 +11,10 @@
     "test:polymer:local": "polymer test --skip-plugin sauce",
     "test:polymer:sauce": "polymer test --skip-plugin local"
   },
-  "homepage": "https://github.com/Brightspace/d2l-tile",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Brightspace/d2l-tile.git"
+    "url": "https://github.com/BrightspaceUI/card.git"
   },
-  "bugs": {
-    "url": "https://github.com/Brightspace/d2l-tile/issues"
-  },
-  "keywords": [
-    "d2l",
-    "tile"
-  ],
   "author": "D2L Corporation",
   "license": "Apache-2.0",
   "devDependencies": {
