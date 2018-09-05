@@ -41,10 +41,14 @@
 				var card;
 
 				var raf = function(cb) {
-					requestAnimationFrame(function() {
-						requestAnimationFrame(function() {
+					fastdom.measure(function() {
+						fastdom.mutate(function() {
 							requestAnimationFrame(function() {
-								cb();
+								requestAnimationFrame(function() {
+									requestAnimationFrame(function() {
+										cb();
+									});
+								});
 							});
 						});
 					});
@@ -75,10 +79,10 @@
 						someContent.textContent = 'stuff';
 						someContent.setAttribute('slot', 'footer');
 						Polymer.dom(card).appendChild(someContent);
-						setTimeout(function() {
+						raf(function() {
 							expect(footerContent.classList.contains('d2l-card-footer-content-hidden')).to.equal(false);
 							done();
-						}, 400);
+						});
 					});
 
 					it('does not show active card style when link is not focused', function() {
