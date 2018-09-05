@@ -75,10 +75,10 @@
 						someContent.textContent = 'stuff';
 						someContent.setAttribute('slot', 'footer');
 						Polymer.dom(card).appendChild(someContent);
-						raf(function() {
+						setTimeout(function() {
 							expect(footerContent.classList.contains('d2l-card-footer-content-hidden')).to.equal(false);
 							done();
-						});
+						}, 400);
 					});
 
 					it('does not show active card style when link is not focused', function() {
@@ -89,27 +89,6 @@
 						var link = card._getContainer().querySelector('a.d2l-focusable');
 						card.focus();
 						expect(D2L.Dom.Focus.getComposedActiveElement()).to.equal(link);
-					});
-
-					it('uses active style when main link is focused', function(done) {
-						var link = card._getContainer().querySelector('a.d2l-focusable');
-						link.focus();
-						raf(function() {
-							expect(card.hasAttribute('active')).to.equal(true);
-							done();
-						});
-					});
-
-					it('removes active style when card loses focus', function(done) {
-						var link = card._getContainer().querySelector('a.d2l-focusable');
-						link.focus();
-						raf(function() {
-							document.querySelector('a').focus();
-							raf(function() {
-								expect(card.hasAttribute('active')).to.equal(false);
-								done();
-							});
-						});
 					});
 
 				});
