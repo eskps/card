@@ -73,18 +73,6 @@
 						expect(footerContent.classList.contains('d2l-card-footer-content-hidden')).to.equal(true);
 					});
 
-					it('shows content-footer separator if footer content is added', function(done) {
-						var footerContent = card._getContainer().querySelector('.d2l-card-footer-content');
-						var someContent = document.createElement('div');
-						someContent.textContent = 'stuff';
-						someContent.setAttribute('slot', 'footer');
-						Polymer.dom(card).appendChild(someContent);
-						raf(function() {
-							expect(footerContent.classList.contains('d2l-card-footer-content-hidden')).to.equal(false);
-							done();
-						});
-					});
-
 					it('does not show active card style when link is not focused', function() {
 						expect(card.hasAttribute('active')).to.equal(false);
 					});
@@ -108,15 +96,6 @@
 						var footerContent = card._getContainer().querySelector('.d2l-card-footer-content');
 						raf(function() {
 							expect(footerContent.classList.contains('d2l-card-footer-content-hidden')).to.equal(false);
-							done();
-						});
-					});
-
-					it('hides content-footer separator if footer content is hidden', function(done) {
-						var footerContent = card._getContainer().querySelector('.d2l-card-footer-content');
-						document.querySelector('#footerContent').style.display = 'none';
-						raf(function() {
-							expect(footerContent.classList.contains('d2l-card-footer-content-hidden')).to.equal(true);
 							done();
 						});
 					});
