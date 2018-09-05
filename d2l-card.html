@@ -52,7 +52,7 @@ Polymer-based web components for card
 				z-index: 1;
 			}
 			.d2l-card-content {
-				padding: 1.5rem 1.2rem;
+				padding: 1.2rem 0.8rem;
 			}
 			.d2l-card-actions {
 				position: absolute;
@@ -86,11 +86,11 @@ Polymer-based web components for card
 			}
 			.d2l-card-badge {
 				line-height: 0;
-				padding: 0 1.2rem;
+				padding: 0 0.8rem;
 			}
 			.d2l-card-footer {
 				flex: none;
-				padding: 0 1.2rem;
+				padding: 0 0.8rem;
 				z-index: 2;
 			}
 			.d2l-card-footer-content {
@@ -212,6 +212,10 @@ Polymer-based web components for card
 				link.removeEventListener('focus', this._onLinkFocus);
 				this.removeEventListener('d2l-dropdown-open', this._onDropdownOpen);
 				this.removeEventListener('d2l-dropdown-close', this._onDropdownClose);
+			},
+
+			_getContainer: function() {
+				return Polymer.dom(this.root).querySelector('.d2l-card-container');
 			},
 
 			_onBadgeResize: function(entries) {
