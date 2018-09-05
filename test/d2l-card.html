@@ -116,8 +116,9 @@
 
 				describe('card with footer', function() {
 
-					beforeEach(function() {
+					beforeEach(function(done) {
 						card = fixture('cardWithFooter');
+						raf(done);
 					});
 
 					it('shows content-footer separator', function(done) {
