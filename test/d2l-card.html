@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>d2l-card tests</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../web-component-tester/browser.js"></script>
+		<link rel="import" href="../../d2l-polymer-behaviors/d2l-dom-focus.html">
+		<link rel="import" href="../d2l-card.html">
+	</head>
+	<body>
+
+		<a href="https://google.com"></a>
+
+		<test-fixture id="card">
+			<template>
+				<d2l-card text="accessible title" href="https://google.com" style="width: 300px; height: 500px;">
+					<div slot="content">
+						<div>title</div>
+					</div>
+				</d2l-card>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="cardWithFooter">
+			<template>
+				<d2l-card text="accessible title" href="https://google.com" style="width: 300px; height: 500px;">
+					<div slot="content">
+						<div>title</div>
+						<d2l-card-content-meta>some other info</d2l-card-content-meta>
+					</div>
+					<div slot="footer"><div id="footerContent">footer stuff</div></div>
+				</d2l-card>
+			</template>
+		</test-fixture>
+
+		<script>
+			describe('<d2l-card>', function() {
+
+				var card;
+
+				var raf = function(cb) {
+					requestAnimationFrame(function() {
+						requestAnimationFrame(function() {
+							requestAnimationFrame(function() {
+								cb();
+							});
+						})
+					})
+				};
+
+				describe('card', function() {
+
+					beforeEach(function(done) {
+						card = fixture('card');
+						raf(done);
+					});
+
+					it('defines anchor element with the specified href and accessible text', function() {
+						var link = card._getContainer().querySelector('a.d2l-focusable');
+						expect(link).to.not.equal(null);
+						expect(link.getAttribute('href')).to.equal('https://google.com');
+						expect(link.textContent).to.equal('accessible title');
+					});
+
+					it('does not show content-footer separator', function() {
+						var footerContent = card._getContainer().querySelector('.d2l-card-footer-content');
+						expect(footerContent.classList.contains('d2l-card-footer-content-hidden')).to.equal(true);
+					});
+
+					it('shows content-footer separator if footer content is added', function(done) {
+						var footerContent = card._getContainer().querySelector('.d2l-card-footer-content');
+						var someContent = document.createElement('div');
+						someContent.textContent = 'stuff';
+						someContent.setAttribute('slot', 'footer');
+						Polymer.dom(card).appendChild(someContent);
+						raf(function() {
+							expect(footerContent.classList.contains('d2l-card-footer-content-hidden')).to.equal(false);
+							done();
+						});
+					});
+
+					it('does not show active card style when link is not focused', function() {
+						expect(card.hasAttribute('active')).to.equal(false);
+					});
+
+					it('focuses on main link when card is focused', function() {
+						var link = card._getContainer().querySelector('a.d2l-focusable');
+						card.focus();
+						expect(D2L.Dom.Focus.getComposedActiveElement()).to.equal(link);
+					});
+
+					it('uses active style when main link is focused', function(done) {
+						var link = card._getContainer().querySelector('a.d2l-focusable');
+						link.focus();
+						raf(function() {
+							expect(card.hasAttribute('active')).to.equal(true);
+							done();
+						});
+					});
+
+					it('removes active style when card loses focus', function(done) {
+						var link = card._getContainer().querySelector('a.d2l-focusable');
+						link.focus();
+						raf(function() {
+							document.querySelector('a').focus();
+							raf(function() {
+								expect(card.hasAttribute('active')).to.equal(false);
+								done();
+							});
+						});
+					});
+
+				});
+
+				describe('card with footer', function() {
+
+					beforeEach(function() {
+						card = fixture('cardWithFooter');
+					});
+
+					it('shows content-footer separator', function(done) {
+						var footerContent = card._getContainer().querySelector('.d2l-card-footer-content');
+						raf(function() {
+							expect(footerContent.classList.contains('d2l-card-footer-content-hidden')).to.equal(false);
+							done();
+						});
+					});
+
+					it('hides content-footer separator if footer content is hidden', function(done) {
+						var footerContent = card._getContainer().querySelector('.d2l-card-footer-content');
+						document.querySelector('#footerContent').style.display = 'none';
+						raf(function() {
+							expect(footerContent.classList.contains('d2l-card-footer-content-hidden')).to.equal(true);
+							done();
+						});
+					});
+
+				});
+
+			});
+		</script>
+	</body>
+</html>
