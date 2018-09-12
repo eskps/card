@@ -44,6 +44,16 @@ Polymer-based web components for card
 				display: inline-block;
 				@apply --d2l-offscreen;
 			}
+
+			/* P2-shadow */
+			:host-context([dir="rtl"]) .d2l-card-link-text {
+				@apply --d2l-offscreen-rtl
+			}
+			/* P1-shady, P2-shady */
+			:host(:dir(rtl)) .d2l-card-link-text {
+				@apply --d2l-offscreen-rtl
+			}
+
 			a.d2l-focusable {
 				display: block;
 				position: absolute;
@@ -102,6 +112,16 @@ Polymer-based web components for card
 				@apply --d2l-offscreen;
 				height: auto;
 			}
+
+			/* P2-shadow */
+			:host-context([dir="rtl"]) .d2l-card-footer-content.d2l-card-footer-content-hidden {
+				@apply --d2l-offscreen-rtl
+			}
+			/* P1-shady, P2-shady */
+			:host(:dir(rtl)) .d2l-card-footer-content.d2l-card-footer-content-hidden {
+				@apply --d2l-offscreen-rtl
+			}
+
 			:host([subtle]) {
 				border: none;
 				box-shadow: 0 4px 8px 0 rgba(0,0,0,0.03);
