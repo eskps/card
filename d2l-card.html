@@ -28,6 +28,7 @@ Polymer-based web components for card
 				z-index: 0;
 			}
 			.d2l-card-container {
+				align-items: flex-start; /* required so that footer will not stretch to 100% width */
 				display: flex;
 				flex-direction: column;
 				position: relative;
@@ -39,6 +40,7 @@ Polymer-based web components for card
 				flex-grow: 1;
 				flex-shrink: 1;
 				flex-basis: auto;
+				width: 100%; /* required for Edge and FF when align-items: flex-start is specified */
 			}
 			.d2l-card-link-text {
 				display: inline-block;
@@ -63,7 +65,10 @@ Polymer-based web components for card
 				z-index: 1;
 			}
 			.d2l-card-content {
-				padding: 1.2rem 0.8rem;
+				padding: 1.2rem 0.8rem 0 0.8rem;
+			}
+			.d2l-card-footer-hidden .d2l-card-content {
+				padding-bottom: 1.2rem;
 			}
 			.d2l-card-actions {
 				position: absolute;
@@ -101,24 +106,19 @@ Polymer-based web components for card
 			}
 			.d2l-card-footer {
 				flex: none;
-				padding: 0 0.8rem;
+				padding: 1.2rem 0.8rem 0.6rem 0.8rem;
 				z-index: 2;
 			}
-			.d2l-card-footer-content {
-				border-top: 1px solid var(--d2l-color-gypsum);
-				padding: 0.6rem 0;
-			}
-			.d2l-card-footer-content.d2l-card-footer-content-hidden {
+			.d2l-card-footer-hidden .d2l-card-footer {
 				@apply --d2l-offscreen;
 				height: auto;
 			}
-
 			/* P2-shadow */
-			:host-context([dir="rtl"]) .d2l-card-footer-content.d2l-card-footer-content-hidden {
+			:host-context([dir="rtl"]) .d2l-card-footer-hidden .d2l-card-footer {
 				@apply --d2l-offscreen-rtl
 			}
 			/* P1-shady, P2-shady */
-			:host(:dir(rtl)) .d2l-card-footer-content.d2l-card-footer-content-hidden {
+			:host(:dir(rtl)) .d2l-card-footer-hidden .d2l-card-footer {
 				@apply --d2l-offscreen-rtl
 			}
 
@@ -151,21 +151,17 @@ Polymer-based web components for card
 				transform: none;
 			}
 		</style>
-		<div class="d2l-card-container d2l-visible-on-ancestor-target">
+		<div class="d2l-card-container d2l-visible-on-ancestor-target d2l-card-footer-hidden">
+			<a class="d2l-focusable" download$="[[download]]" href$="[[href]]" hreflang="[[hreflang]]" rel="[[rel]]" target="[[target]]" type="[[type]]">
+				<span class="d2l-card-link-text">[[text]]</span>
+			</a>
 			<div class="d2l-card-link-container">
-				<a class="d2l-focusable" download$="[[download]]" href$="[[href]]" hreflang="[[hreflang]]" rel="[[rel]]" target="[[target]]" type="[[type]]">
-					<span class="d2l-card-link-text">[[text]]</span>
-				</a>
 				<div class="d2l-card-header"><slot name="header"></slot></div>
 				<div class="d2l-card-badge"><slot name="badge"></slot></div>
 				<div class="d2l-card-content"><slot name="content"></slot></div>
 			</div>
-			<div class="d2l-card-actions">
-				<slot name="actions"></slot>
-			</div>
-			<div class="d2l-card-footer">
-				<div class="d2l-card-footer-content d2l-card-footer-content-hidden"><slot name="footer"></slot></div>
-			</div>
+			<div class="d2l-card-actions"><slot name="actions"></slot></div>
+			<div class="d2l-card-footer"><slot name="footer"></slot></div>
 		</div>
 	</template>
 
@@ -209,7 +205,7 @@ Polymer-based web components for card
 
 			attached: function() {
 				var badge = Polymer.dom(this.root).querySelector('.d2l-card-badge');
-				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer-content');
+				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer');
 				this._badgeObserver = new ResizeObserver(this._onBadgeResize);
 				this._badgeObserver.observe(badge);
 				this._footerObserver = new ResizeObserver(this._onFooterResize);
@@ -225,7 +221,7 @@ Polymer-based web components for card
 
 			detached: function() {
 				var badge = Polymer.dom(this.root).querySelector('.d2l-card-badge');
-				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer-content');
+				var footer = Polymer.dom(this.root).querySelector('.d2l-card-footer');
 				if (this._badgeObserver) this._badgeObserver.unobserve(badge);
 				if (this._footerObserver) this._footerObserver.unobserve(footer);
 				var link = Polymer.dom(this.root).querySelector('a');
@@ -261,14 +257,15 @@ Polymer-based web components for card
 				if (!entries || entries.length === 0) {
 					return;
 				}
+				var container = Polymer.dom(this.root).querySelector('.d2l-card-container');
 				var entry = entries[0];
-				if (entry.contentRect.height === 0 && !entry.target.classList.contains('d2l-card-footer-content-hidden')) {
+				if (entry.contentRect.height === 0 && !container.classList.contains('d2l-card-footer-hidden')) {
 					fastdom.mutate(function() {
-						entry.target.classList.add('d2l-card-footer-content-hidden');
+						container.classList.add('d2l-card-footer-hidden');
 					});
-				} else if (entry.contentRect.height > 0 && entry.target.classList.contains('d2l-card-footer-content-hidden')) {
+				} else if (entry.contentRect.height > 0 && container.classList.contains('d2l-card-footer-hidden')) {
 					fastdom.mutate(function() {
-						entry.target.classList.remove('d2l-card-footer-content-hidden');
+						container.classList.remove('d2l-card-footer-hidden');
 					});
 				}
 			},
