@@ -33,8 +33,6 @@ Polymer-based web component for links in card footers
 				margin-right: 0;
 			}
 			a {
-				border: 1px solid transparent;
-				border-radius: 0.3rem;
 				box-sizing: border-box;
 				display: inline-block;
 				line-height: 0;
@@ -43,13 +41,9 @@ Polymer-based web component for links in card footers
 				position: relative;
 				text-align: center;
 			}
-			a:focus,
-			a:hover {
-				background-color: var(--d2l-color-gypsum);
-			}
-			a:focus {
-				border-color: rgba(0, 111, 191, 0.4);
-				box-shadow: 0 0 0 4px rgba(0, 111, 191, 0.3);
+			a:focus d2l-icon,
+			a:hover d2l-icon {
+				color: var(--d2l-color-celestine);
 			}
 			d2l-icon {
 				height: 0.9rem;
@@ -68,7 +62,8 @@ Polymer-based web component for links in card footers
 				font-size: 0.55rem;
 				font-weight: 400;
 				line-height: 100%;
-				padding: 1px;
+				min-width: 0.75rem;
+				padding: 2px;
 				position: absolute;
 				right: 0;
 				top: 0;
