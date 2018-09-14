@@ -52,6 +52,14 @@ Polymer-based web component for links in card footers
 			.d2l-card-footer-link-text {
 				@apply --d2l-offscreen;
 			}
+			/* P2-shadow */
+			:host-context([dir="rtl"]) .d2l-card-footer-link-text {
+				@apply --d2l-offscreen-rtl
+			}
+			/* P1-shady, P2-shady */
+			:host(:dir(rtl)) .d2l-card-footer-link-text {
+				@apply --d2l-offscreen-rtl
+			}
 			.d2l-card-footer-link-secondary-text {
 				background-color: white;
 				border: 2px solid var(--d2l-color-carnelian);
