@@ -25,6 +25,8 @@ Polymer-based web components for card
 				box-sizing: border-box;
 				display: inline-block;
 				position: relative;
+				-webkit-transition: transform 300ms ease-out;
+				transition: transform 300ms ease-out 50ms;
 				z-index: 0;
 			}
 			.d2l-card-container {
@@ -121,21 +123,25 @@ Polymer-based web components for card
 			:host(:dir(rtl)) .d2l-card-footer-hidden .d2l-card-footer {
 				@apply --d2l-offscreen-rtl
 			}
-
 			:host([subtle]) {
 				border: none;
 				box-shadow: 0 4px 8px 0 rgba(0,0,0,0.03);
-				-webkit-transition: transform 300ms ease-out;
-				transition: transform 300ms ease-out 50ms;
+			}
+			:host(:hover),
+			:host([subtle]:hover) {
+				transform: translateY(-4px);
+			}
+			:host(:hover) {
+				box-shadow: 0 2px 14px 1px rgba(0,0,0,0.06);
 			}
 			:host([subtle]:hover) {
 				box-shadow: 0 4px 18px 2px rgba(0,0,0,0.06);
-				transform: translateY(-4px);
 			}
 			:host([active]) {
 				border-color: rgba(0, 111, 191, 0.4);
 				box-shadow: 0 0 0 4px rgba(0, 111, 191, 0.3);
 			}
+			:host([active]:hover),
 			:host([subtle][active]:hover) {
 				border-color: rgba(0, 111, 191, 0.4);
 				box-shadow: 0 0 0 4px rgba(0, 111, 191, 0.3);
