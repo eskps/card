@@ -18,9 +18,12 @@ Polymer-based web component for links in card footers
 	<template strip-whitespace>
 		<style include="d2l-offscreen-shared-styles">
 			:host {
-				box-sizing: border-box;
 				display: inline-block;
 				margin-right: 0.3rem;
+				position: relative;
+			}
+			:host[hidden] {
+				display: none;
 			}
 			/* P2-shadow */
 			:host-context([dir="rtl"]) {
@@ -32,17 +35,24 @@ Polymer-based web component for links in card footers
 				margin-left: 0.3rem;
 				margin-right: 0;
 			}
-			a {
+			.d2l-card-footer-link-content {
+				position: relative;
+				display: inline-block;
+				text-align: center;
+				line-height: 0;
+				padding: 0.6rem;
+			}
+			a.d2l-focusable {
 				box-sizing: border-box;
 				display: inline-block;
-				line-height: 0;
+				position: absolute;
 				outline: none;
-				padding: 0.6rem;
-				position: relative;
-				text-align: center;
+				height: 100%;
+				width: 100%;
+				z-index: 1;
 			}
-			a[href]:focus d2l-icon,
-			a[href]:hover d2l-icon {
+			a.d2l-focusable[href]:focus + .d2l-card-footer-link-content > d2l-icon,
+			a.d2l-focusable[href]:hover + .d2l-card-footer-link-content > d2l-icon {
 				color: var(--d2l-color-celestine);
 			}
 			d2l-icon {
@@ -82,10 +92,12 @@ Polymer-based web component for links in card footers
 			}
 		</style>
 		<a class="d2l-focusable" download$="[[download]]" href$="[[href]]" hreflang="[[hreflang]]" rel="[[rel]]" target="[[target]]" type="[[type]]">
-			<d2l-icon icon=[[icon]]></d2l-icon>
 			<span class="d2l-card-footer-link-text">[[text]]</span>
-			<div class="d2l-card-footer-link-secondary-text" aria-hidden hidden>[[secondaryText]]</div>
 		</a>
+		<div class="d2l-card-footer-link-content" >
+			<d2l-icon icon=[[icon]]></d2l-icon>
+			<div class="d2l-card-footer-link-secondary-text" aria-hidden hidden>[[secondaryText]]</div>
+		</div>
 	</template>
 
 	<script>
