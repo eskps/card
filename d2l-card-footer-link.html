@@ -21,6 +21,7 @@ Polymer-based web component for links in card footers
 				display: inline-block;
 				margin-right: 0.3rem;
 				position: relative;
+				left: -0.6rem;
 			}
 			:host[hidden] {
 				display: none;
@@ -29,11 +30,15 @@ Polymer-based web component for links in card footers
 			:host-context([dir="rtl"]) {
 				margin-left: 0.3rem;
 				margin-right: 0;
+				left: auto;
+				right: -0.6rem;
 			}
 			/* P1-shady, P2-shady */
 			:host(:dir(rtl)) {
 				margin-left: 0.3rem;
 				margin-right: 0;
+				left: auto;
+				right: -0.6rem;
 			}
 			.d2l-card-footer-link-content {
 				position: relative;
@@ -86,6 +91,16 @@ Polymer-based web component for links in card footers
 				position: absolute;
 				right: 0;
 				top: 0;
+			}
+			/* P2-shadow */
+			:host-context([dir="rtl"]) .d2l-card-footer-link-secondary-text {
+				right: auto;
+				left: 0;
+			}
+			/* P1-shady, P2-shady */
+			:host(:dir(rtl)) .d2l-card-footer-link-secondary-text {
+				right: auto;
+				left: 0;
 			}
 			[hidden].d2l-card-footer-link-secondary-text {
 				display: none;
