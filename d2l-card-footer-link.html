@@ -18,31 +18,47 @@ Polymer-based web component for links in card footers
 	<template strip-whitespace>
 		<style include="d2l-offscreen-shared-styles">
 			:host {
-				box-sizing: border-box;
 				display: inline-block;
+				left: -0.6rem;
 				margin-right: 0.3rem;
+				position: relative;
+			}
+			:host[hidden] {
+				display: none;
 			}
 			/* P2-shadow */
 			:host-context([dir="rtl"]) {
+				left: auto;
 				margin-left: 0.3rem;
 				margin-right: 0;
+				right: -0.6rem;
 			}
 			/* P1-shady, P2-shady */
 			:host(:dir(rtl)) {
+				left: auto;
 				margin-left: 0.3rem;
 				margin-right: 0;
+				right: -0.6rem;
 			}
-			a {
-				box-sizing: border-box;
+			.d2l-card-footer-link-content {
 				display: inline-block;
 				line-height: 0;
-				outline: none;
 				padding: 0.6rem;
 				position: relative;
 				text-align: center;
 			}
-			a[href]:focus d2l-icon,
-			a[href]:hover d2l-icon {
+			a.d2l-focusable {
+				box-sizing: border-box;
+				display: inline-block;
+				height: 100%;
+				position: absolute;
+				outline: none;
+
+				width: 100%;
+				z-index: 1;
+			}
+			a.d2l-focusable[href]:focus + .d2l-card-footer-link-content > d2l-icon,
+			a.d2l-focusable[href]:hover + .d2l-card-footer-link-content > d2l-icon {
 				color: var(--d2l-color-celestine);
 			}
 			d2l-icon {
@@ -66,7 +82,7 @@ Polymer-based web component for links in card footers
 				border-radius: 0.25rem;
 				box-shadow: 0 0 0 1px white;
 				box-sizing: content-box;
-				color: var(--d2l-color-carnelian);
+				color: var(--d2l-color-ferrite);
 				display: inline-block;
 				font-size: 0.55rem;
 				font-weight: 400;
@@ -77,15 +93,27 @@ Polymer-based web component for links in card footers
 				right: 0;
 				top: 0;
 			}
+			/* P2-shadow */
+			:host-context([dir="rtl"]) .d2l-card-footer-link-secondary-text {
+				left: 0;
+				right: auto;
+			}
+			/* P1-shady, P2-shady */
+			:host(:dir(rtl)) .d2l-card-footer-link-secondary-text {
+				left: 0;
+				right: auto;
+			}
 			[hidden].d2l-card-footer-link-secondary-text {
 				display: none;
 			}
 		</style>
 		<a class="d2l-focusable" download$="[[download]]" href$="[[href]]" hreflang="[[hreflang]]" rel="[[rel]]" target="[[target]]" type="[[type]]">
-			<d2l-icon icon=[[icon]]></d2l-icon>
 			<span class="d2l-card-footer-link-text">[[text]]</span>
-			<div class="d2l-card-footer-link-secondary-text" aria-hidden hidden>[[secondaryText]]</div>
 		</a>
+		<div class="d2l-card-footer-link-content" >
+			<d2l-icon icon=[[icon]]></d2l-icon>
+			<div class="d2l-card-footer-link-secondary-text" aria-hidden hidden>[[secondaryText]]</div>
+		</div>
 	</template>
 
 	<script>
