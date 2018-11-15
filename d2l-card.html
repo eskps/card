@@ -147,9 +147,13 @@ Polymer-based web components for card
 				box-shadow: 0 0 0 4px rgba(0, 111, 191, 0.3);
 				transform: translateY(-4px);
 			}
+			/* this is needed to ensure tooltip is not be clipped by adjacent cards */
+			:host([tooltip-showing]) {
+				z-index: 1;
+			}
 			/* this is needed to ensure open menu will be ontop of adjacent cards */
 			:host([dropdown-action-open]) {
-				z-index: 1;
+				z-index: 2;
 			}
 			:host(:not([href])),
 			:host([subtle]:not([href])) {
@@ -207,6 +211,8 @@ Polymer-based web components for card
 				this._onLinkFocus = this._onLinkFocus.bind(this);
 				this._onDropdownOpen = this._onDropdownOpen.bind(this);
 				this._onDropdownClose = this._onDropdownClose.bind(this);
+				this._onTooltipShow = this._onTooltipShow.bind(this);
+				this._onTooltipHide = this._onTooltipHide.bind(this);
 			},
 
 			attached: function() {
@@ -222,6 +228,8 @@ Polymer-based web components for card
 					link.addEventListener('focus', this._onLinkFocus);
 					this.addEventListener('d2l-dropdown-open', this._onDropdownOpen);
 					this.addEventListener('d2l-dropdown-close', this._onDropdownClose);
+					this.addEventListener('d2l-tooltip-show', this._onTooltipShow);
+					this.addEventListener('d2l-tooltip-hide', this._onTooltipHide);
 				}.bind(this));
 			},
 
@@ -235,6 +243,8 @@ Polymer-based web components for card
 				link.removeEventListener('focus', this._onLinkFocus);
 				this.removeEventListener('d2l-dropdown-open', this._onDropdownOpen);
 				this.removeEventListener('d2l-dropdown-close', this._onDropdownClose);
+				this.removeEventListener('d2l-tooltip-show', this._onTooltipShow);
+				this.removeEventListener('d2l-tooltip-hide', this._onTooltipHide);
 			},
 
 			_getContainer: function() {
@@ -257,6 +267,14 @@ Polymer-based web components for card
 
 			_onDropdownClose: function() {
 				this.removeAttribute('dropdown-action-open');
+			},
+
+			_onTooltipShow: function() {
+				this.setAttribute('tooltip-showing', 'tooltip-showing');
+			},
+
+			_onTooltipHide: function() {
+				this.removeAttribute('tooltip-showing');
 			},
 
 			_onFooterResize: function(entries) {
