@@ -130,6 +130,8 @@ Polymer-based web components for card
 			:host(:hover),
 			:host([subtle]:hover) {
 				transform: translateY(-4px);
+				/* this is needed to ensure tooltip is not be clipped by adjacent cards */
+				z-index: 1;
 			}
 			:host(:hover) {
 				box-shadow: 0 2px 14px 1px rgba(0,0,0,0.06);
@@ -149,7 +151,7 @@ Polymer-based web components for card
 			}
 			/* this is needed to ensure open menu will be ontop of adjacent cards */
 			:host([dropdown-action-open]) {
-				z-index: 1;
+				z-index: 2;
 			}
 			:host(:not([href])),
 			:host([subtle]:not([href])) {
